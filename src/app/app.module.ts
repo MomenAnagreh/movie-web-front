@@ -11,6 +11,8 @@ import { FrequentlyAskedQuestionsComponent } from './home-page/frequently-asked-
 import { SigninFormComponent } from './home-page/signin-form/signin-form.component';
 import { FooterComponent } from './home-page/footer/footer.component';
 import { LangSelectComponent } from './home-page/lang-select/lang-select.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { MainLogoComponent } from './home-page/main-logo/main-logo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LangSelectComponent } from './home-page/lang-select/lang-select.compone
     FrequentlyAskedQuestionsComponent,
     SigninFormComponent,
     FooterComponent,
-    LangSelectComponent
+    LangSelectComponent,
+    SignInComponent,
+    MainLogoComponent
   ],
   imports: [
     BrowserModule,
