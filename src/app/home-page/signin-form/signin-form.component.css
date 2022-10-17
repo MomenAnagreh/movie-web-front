@@ -1,0 +1,31 @@
+.email-text {
+  text-align: center;
+  font-size: 21px;
+  font-weight: normal;
+}
+
+.email-input-button {
+  display: flex;
+  flex-direction: row;
+  width: 900px;
+  justify-content: center;
+  align-items: center;
+}
+
+.email-input {
+  width: 60%;
+  height: 70px;
+  font-size: 18px;
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+.email-button {
+  width: 30%;
+  height: 77px;
+  background-color: red;
+  color: white;
+  font-size: 33px;
+  font-weight: normal;
+  cursor: pointer;
+}
