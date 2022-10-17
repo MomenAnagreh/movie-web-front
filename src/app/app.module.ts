@@ -13,6 +13,7 @@ import { FooterComponent } from './home-page/footer/footer.component';
 import { LangSelectComponent } from './home-page/lang-select/lang-select.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { MainLogoComponent } from './home-page/main-logo/main-logo.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MainLogoComponent } from './home-page/main-logo/main-logo.component';
     FooterComponent,
     LangSelectComponent,
     SignInComponent,
-    MainLogoComponent
+    MainLogoComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
