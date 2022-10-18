@@ -20,12 +20,23 @@
   font-weight: normal;
 }
 
-.email-button {
+.email-nav {
   width: 30%;
   height: 77px;
-  background-color: red;
+  background-color: rgb(219, 32, 44);
   color: white;
   font-size: 33px;
   font-weight: normal;
   cursor: pointer;
+}
+
+.email-button {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(219, 32, 44);
+  color: white;
+  font-size: 33px;
+  font-weight: normal;
+  cursor: pointer;
+  border: none;
 }
