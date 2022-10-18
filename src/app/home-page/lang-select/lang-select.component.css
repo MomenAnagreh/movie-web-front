@@ -26,3 +26,15 @@
   outline: none;
   border: none;
 }
+
+#globe {
+  font-size: 15px;
+  color: white;
+  padding-right: 3px;
+}
+
+#arrow-down {
+  font-size: 20px;
+  color: white;
+  padding-right: 5px;
+}
