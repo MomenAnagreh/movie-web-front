@@ -14,6 +14,9 @@ import { LangSelectComponent } from './home-page/lang-select/lang-select.compone
 import { SignInComponent } from './sign-in/sign-in.component';
 import { MainLogoComponent } from './home-page/main-logo/main-logo.component';
 import { RegisterComponent } from './register/register.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,13 +31,11 @@ import { RegisterComponent } from './register/register.component';
     LangSelectComponent,
     SignInComponent,
     MainLogoComponent,
-    RegisterComponent
+    RegisterComponent,
+    PageNotFoundComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

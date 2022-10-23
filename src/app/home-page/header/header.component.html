@@ -2,21 +2,7 @@
   <app-main-logo></app-main-logo>>
   <div class="lang-singin">
     <app-lang-select></app-lang-select>
-    <a
-      *ngIf="isLoggedIn"
-      href="/homePage"
-      class="sign"
-      data-uia="header-login-link"
-    >
-      Logout
-    </a>
-    <a
-      *ngIf="!isLoggedIn"
-      href="/homePage"
-      class="sign"
-      data-uia="header-login-link"
-    >
-      Sign In
-    </a>
+    <a *ngIf="isLoggedIn" href="" class="sign"> Logout </a>
+    <a *ngIf="!isLoggedIn" href="/signin" class="sign"> Sign In </a>
   </div>
 </div>
