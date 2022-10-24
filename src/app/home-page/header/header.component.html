@@ -1,8 +1,21 @@
 <div class="logo-lang-singin">
-  <app-main-logo></app-main-logo>>
+  <app-main-logo></app-main-logo>
   <div class="lang-singin">
+    <p *ngIf="homePageService.isLoggedIn" class="username">
+      Welcome {{ username }}
+    </p>
+
     <app-lang-select></app-lang-select>
-    <a *ngIf="isLoggedIn" href="" class="sign"> Logout </a>
-    <a *ngIf="!isLoggedIn" href="/signin" class="sign"> Sign In </a>
+    <a
+      *ngIf="homePageService.isLoggedIn"
+      routerLink="/signin"
+      class="sign"
+      (click)="homePageService.isLoggedIn = false"
+    >
+      Logout
+    </a>
+    <a *ngIf="!homePageService.isLoggedIn" routerLink="/signin" class="sign">
+      Sign In
+    </a>
   </div>
 </div>

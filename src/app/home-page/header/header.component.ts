@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomePageService } from 'src/app/services/home-page.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  username: any = '';
 
-  constructor() {}
+  constructor(
+    public homePageService: HomePageService,
+    public userService: UsersService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.users.map((user) => {
+      if (user.selected) this.username = user.email;
+    });
+  }
 }

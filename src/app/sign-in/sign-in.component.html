@@ -3,33 +3,68 @@
     <app-main-logo></app-main-logo>
     <div class="divider"></div>
 
-    <div class="signin-container">
+    <form class="signin-container" #contactform="ngForm">
       <div class="signIn">
         <h1 class="title">Sign In</h1>
 
         <input
-          type="text"
+          type="email"
           class="inputField"
-          placeholder="Email or phone number"
+          placeholder="Email"
+          id="email"
+          name="email"
+          [(ngModel)]="contact.email"
+          required
+          email
+          #email="ngModel"
         />
-        <input type="text" class="inputField" placeholder="Password" />
+        <div class="passInputWrapp">
+          <input
+            type="password"
+            class="inputField"
+            placeholder="Password"
+            id="password"
+            name="password"
+            [(ngModel)]="contact.password"
+            required
+            #password="ngModel"
+            #pass
+          />
+          <button class="showPass" (click)="showPass()">Show</button>
+        </div>
 
-        <button class="signInButton">Sign In</button>
+        <div *ngIf="(!email.valid && email.dirty) || noData" style="color: red">
+          Enter a valid email
+        </div>
+
+        <div *ngIf="show" style="color: red">Enter a valid password</div>
+
+        <div *ngIf="activate" style="color: red">User not Found!</div>
+
+        <button
+          class="signInButton"
+          (mouseover)="onSubmit(contactform)"
+          (click)="showError()"
+          [routerLink]="contactform.valid && autharized ? '/movies' : null"
+          type="button"
+        >
+          Sign In
+        </button>
 
         <div class="help">
           <label class="checkbox-wrap">
             <input type="checkbox" class="remember" />
             Remember me
           </label>
-          <a href="" class="needHelp">Need help?</a>
+          <a href="**" class="needHelp">Need help?</a>
         </div>
 
         <div class="register">
           <div>New to Netflix?</div>
-          <a href="">Sign up now.</a>
+          <a routerLink="/signup">Sign up now.</a>
         </div>
       </div>
-    </div>
+    </form>
 
     <div class="divider"></div>
 

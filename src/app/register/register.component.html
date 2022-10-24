@@ -3,20 +3,59 @@
     <app-main-logo></app-main-logo>
     <div class="divider"></div>
 
-    <div class="signin-container">
+    <form class="signin-container" #contactform="ngForm">
       <div class="signIn">
         <h1 class="title">Sign up</h1>
 
         <input
-          type="text"
+          type="email"
           class="inputField"
-          placeholder="Email or phone number"
+          placeholder="Email"
+          id="email"
+          name="email"
+          [(ngModel)]="contact.email"
+          required
+          email
+          #email="ngModel"
         />
-        <input type="text" class="inputField" placeholder="Password" />
 
-        <button class="signInButton">Sign up</button>
+        <div class="passInputWrapp">
+          <input
+            type="password"
+            class="inputField"
+            placeholder="Password"
+            id="password"
+            name="password"
+            [(ngModel)]="contact.password"
+            required
+            #password="ngModel"
+            #pass
+          />
+          <button class="showPass" (click)="showPass()">Show</button>
+        </div>
+
+        <div *ngIf="!email.valid && email.dirty" style="color: red">
+          Please enter a valid email or password
+        </div>
+
+        <div *ngIf="activate" style="color: red">User Exist</div>
+
+        <button
+          [disabled]="!contactform.valid"
+          (mouseover)="onHover(contactform)"
+          (click)="onClick()"
+          [routerLink]="!show ? '/movies' : '/signup'"
+          class="signInButton"
+          type="button"
+        >
+          Sign up
+        </button>
+        <p style="font-size: 20px">or</p>
+        <a routerLink="/signin" style="color: white; font-size: 20px">
+          Sign in
+        </a>
       </div>
-    </div>
+    </form>
 
     <div class="divider"></div>
 
