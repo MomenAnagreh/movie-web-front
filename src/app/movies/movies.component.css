@@ -1,0 +1,110 @@
+.header {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100px;
+  background-color: rgb(34, 34, 34);
+  color: white;
+  width: 100%;
+  z-index: 2;
+}
+
+.MainWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(34, 34, 34);
+  min-height: 100%;
+  padding-top: 120px;
+}
+
+.popularMovieWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  margin-left: 70px;
+  margin-bottom: 80px;
+  overflow-x: auto;
+}
+
+.popularMovieWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.popularMovieImgWrapper {
+  display: flex;
+  margin-right: 20px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.popularMovieImg {
+  width: 300px;
+  height: 300px;
+  border-radius: 7px;
+}
+
+#scrollRight {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: lightgray;
+  font-size: 50px;
+  border: none;
+  right: 0;
+  cursor: pointer;
+  height: 200px;
+  width: 80px;
+  margin-right: 20px;
+}
+
+#scrollRight:hover {
+  font-size: 60px;
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+#scrollLeft {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: lightgray;
+  font-size: 50px;
+  border: none;
+  cursor: pointer;
+  height: 200px;
+  width: 80px;
+  float: left;
+}
+
+#scrollLeft:hover {
+  font-size: 60px;
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+.listTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 70px;
+  color: lightgrey;
+}
+
+.listScrollRight {
+  background-color: transparent;
+  color: lightseagreen;
+  font-size: 40px;
+  border: none;
+  right: 0;
+  cursor: pointer;
+}
+
+.listScrollRight:hover {
+  font-size: 30px;
+}

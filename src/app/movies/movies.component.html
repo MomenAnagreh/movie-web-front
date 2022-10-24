@@ -1,0 +1,58 @@
+<div class="header">
+  <app-main-logo></app-main-logo>
+</div>
+<div class="MainWrapper">
+  <div class="listTitle">
+    <h1>Popular Movies</h1>
+    <button class="listScrollRight">
+      <i class="fas fa-angle-right"></i>
+    </button>
+  </div>
+  <ul class="popularMovieWrapper" id="0" #list>
+    <li
+      class="popularMovieImgWrapper"
+      *ngFor="let movie of movieService.populerMovieList$ | async"
+    >
+      <img class="popularMovieImg" [src]="movie.image" />
+    </li>
+
+    <i
+      class="fas fa-angle-right"
+      id="scrollRight"
+      (click)="scrollRight($event)"
+    ></i>
+
+    <i
+      class="fas fa-angle-left"
+      id="scrollLeft"
+      (click)="scrollLeft($event)"
+    ></i>
+  </ul>
+
+  <div class="listTitle">
+    <h1>Trending Movies</h1>
+    <button class="listScrollRight">
+      <i class="fas fa-angle-right"></i>
+    </button>
+  </div>
+  <ul class="popularMovieWrapper" id="1" #list>
+    <li
+      class="popularMovieImgWrapper"
+      *ngFor="let movie of movieService.trendingMovieList$ | async"
+    >
+      <img class="popularMovieImg" [src]="movie.image" />
+    </li>
+
+    <i
+      class="fas fa-angle-right"
+      id="scrollRight"
+      (click)="scrollRight($event)"
+    ></i>
+
+    <i
+      class="fas fa-angle-left"
+      id="scrollLeft"
+      (click)="scrollLeft($event)"
+    ></i>
+  </ul>
+</div>
