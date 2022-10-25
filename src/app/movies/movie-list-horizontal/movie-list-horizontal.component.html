@@ -1,0 +1,8 @@
+<ul class="horizontalMovieListWrapper" id="2" #list>
+  <app-movie
+    *ngFor="let movie of movies | async"
+    [movie]="movie"
+    style="margin-right: 50px; margin-bottom: 50px"
+  >
+  </app-movie>
+</ul>

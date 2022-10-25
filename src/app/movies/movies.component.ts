@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 
 @Component({
@@ -14,33 +7,18 @@ import { MoviesService } from '../services/movies.service';
   styleUrls: ['./movies.component.css'],
 })
 export class MoviesComponent implements OnInit {
-  @ViewChildren('list') list!: QueryList<any>;
+  page: number = 1;
+  constructor(public movieService: MoviesService) {
+    this.movieService.getMovies('populerMovies').subscribe();
 
-  constructor(public movieService: MoviesService) {}
+    this.movieService.getMovies('trendingMovies').subscribe();
 
-  ngOnInit() {
-    this.movieService.getPopulerMovies().subscribe();
-
-    this.movieService.getTrendingMovies().subscribe();
+    this.movieService.getMovies('discovrMovies', this.page).subscribe();
   }
 
-  ngAfterViewInit() {}
+  ngOnInit() {}
 
-  scrollRight(elem: any): void {
-    let parentId = elem.target.parentElement.id;
-    let elemenet = this.list['_results'];
-    elemenet[parentId].nativeElement.scrollTo({
-      left: elemenet[parentId].nativeElement.scrollLeft + 1700,
-      behavior: 'smooth',
-    });
-  }
-
-  scrollLeft(elem: any): void {
-    let parentId = elem.target.parentElement.id;
-    let elemenet = this.list['_results'];
-    elemenet[parentId].nativeElement.scrollTo({
-      left: elemenet[parentId].nativeElement.scrollLeft - 1700,
-      behavior: 'smooth',
-    });
+  onScroll() {
+    this.movieService.getMovies('discovrMovies', ++this.page).subscribe();
   }
 }

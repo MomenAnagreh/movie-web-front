@@ -1,33 +1,22 @@
 <div class="header">
   <app-header></app-header>
 </div>
-<div class="MainWrapper">
+<div
+  class="MainWrapper"
+  (scrolled)="onScroll()"
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+>
   <div class="listTitle">
     <h1>Popular Movies</h1>
     <button class="listScrollRight">
       <i class="fas fa-angle-right"></i>
     </button>
   </div>
-  <ul class="popularMovieWrapper" id="0" #list>
-    <li
-      class="popularMovieImgWrapper"
-      *ngFor="let movie of movieService.populerMovieList$ | async"
-    >
-      <img class="popularMovieImg" [src]="movie.image" />
-    </li>
-
-    <i
-      class="fas fa-angle-right"
-      id="scrollRight"
-      (click)="scrollRight($event)"
-    ></i>
-
-    <i
-      class="fas fa-angle-left"
-      id="scrollLeft"
-      (click)="scrollLeft($event)"
-    ></i>
-  </ul>
+  <app-movie-list-vertical
+    [movies]="movieService.populerMovieList$"
+  ></app-movie-list-vertical>
 
   <div class="listTitle">
     <h1>Trending Movies</h1>
@@ -35,24 +24,19 @@
       <i class="fas fa-angle-right"></i>
     </button>
   </div>
-  <ul class="popularMovieWrapper" id="1" #list>
-    <li
-      class="popularMovieImgWrapper"
-      *ngFor="let movie of movieService.trendingMovieList$ | async"
-    >
-      <img class="popularMovieImg" [src]="movie.image" />
-    </li>
+  <app-movie-list-vertical
+    [movies]="movieService.trendingMovieList$"
+  ></app-movie-list-vertical>
 
-    <i
-      class="fas fa-angle-right"
-      id="scrollRight"
-      (click)="scrollRight($event)"
-    ></i>
+  <hr />
 
-    <i
-      class="fas fa-angle-left"
-      id="scrollLeft"
-      (click)="scrollLeft($event)"
-    ></i>
-  </ul>
+  <div class="listTitle" style="padding-top: 200px; margin-bottom: 40px">
+    <h1>All Movies</h1>
+    <button class="listScrollRight">
+      <i class="fas fa-angle-right"></i>
+    </button>
+  </div>
+  <app-movie-list-horizontal
+    [movies]="movieService.allMoviesList$"
+  ></app-movie-list-horizontal>
 </div>

@@ -19,6 +19,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviesComponent } from './movies/movies.component';
 import { AuthGuard } from './auth.guard';
+import { MovieListVerticalComponent } from './movies/movie-list-vertical/movie-list-vertical.component';
+import { MovieComponent } from './movies/movie/movie.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MovieListHorizontalComponent } from './movies/movie-list-horizontal/movie-list-horizontal.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +40,17 @@ import { AuthGuard } from './auth.guard';
     RegisterComponent,
     PageNotFoundComponent,
     MoviesComponent,
+    MovieListVerticalComponent,
+    MovieComponent,
+    MovieListHorizontalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    InfiniteScrollModule,
+  ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
 })

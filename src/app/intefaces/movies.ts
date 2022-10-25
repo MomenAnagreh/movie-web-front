@@ -3,6 +3,11 @@ export interface Movie {
   id: number;
   name: string;
   image: string;
+  backdrop_path: string;
+  release_date: string;
+  original_language: string;
+  vote_average: number;
+  overview: string;
 }
 
 export interface MoviesResponse {
@@ -27,4 +32,5 @@ export interface MoviesResults {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  original_name: string;
 }

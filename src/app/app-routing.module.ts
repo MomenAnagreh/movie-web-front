@@ -11,7 +11,9 @@ export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'signin', component: SignInComponent },
-  { path: 'movies', component: MoviesComponent, canActivate: [AuthGuard] },
+  // { path: 'movies', component: MoviesComponent, canActivate: [AuthGuard] },
+  { path: 'movies', component: MoviesComponent },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 
