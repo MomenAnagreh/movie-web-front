@@ -1,14 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Movie, MoviesResponse, MoviesResults } from '../intefaces/movies';
+import { catchError, map, tap } from 'rxjs/operators';
+import {
+  Movie,
+  MoviesResponse,
+  MoviesResults,
+  Trailer,
+} from '../intefaces/movies';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  mainImg: string = '';
+  mainImg: any = {};
+  trailerKey: string = '';
+  trailerClicked: boolean = false;
 
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
@@ -29,6 +36,7 @@ export class MoviesService {
   private readonly trendingAPI = `https://api.themoviedb.org/3/trending/all/day?api_key=${this.apiKey}&page=`;
   private readonly imageURL = 'https://image.tmdb.org/t/p/w500';
   private readonly discovrAPI = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&sort_by=popularity.desc&include_adult=false&include_video=false&page=`;
+  private readonly trailerAPI = `/videos?api_key=${this.apiKey}`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -53,6 +61,7 @@ export class MoviesService {
               : 'null',
             original_language: item.original_language,
             vote_average: item.vote_average.toFixed(1),
+            trailerKey: '',
           };
           return movie;
         });
@@ -80,7 +89,17 @@ export class MoviesService {
     return this.http.get<MoviesResults>(this.movieApi + id + this.longApiKey);
   }
 
-  setMainImg(path: string) {
-    this.mainImg = this.imageURL + path;
+  getTrailer(id: string) {
+    return this.http.get<Trailer>(this.movieApi + id + this.trailerAPI).pipe(
+      catchError((err) => {
+        console.log(err);
+        return err;
+      })
+    );
+  }
+
+  setMainImg(details: any) {
+    details.image = this.imageURL + details.image;
+    this.mainImg = details;
   }
 }

@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { Movie } from 'src/app/intefaces/movies';
+import { Movie, Trailer } from 'src/app/intefaces/movies';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -35,23 +35,6 @@ export class MovieComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  changeImage(elem: any) {
-    let current = elem.target;
-
-    while (
-      String(current.attributes.class.value).toLowerCase() !=
-      'movieCardWrapper'.toLowerCase()
-    ) {
-      current = current.parentNode;
-    }
-
-    console.log(current.attributes.id);
-
-    this.movieService
-      .getMovie(current.attributes.id.value)
-      .subscribe((item: any) => this.movieService.setMainImg(item.poster_path));
-  }
-
   addBackgroundImg(arr: Movie[]) {
     arr.forEach((movie) => {
       this.cards['_results'].map((elem: any) => {
@@ -60,5 +43,42 @@ export class MovieComponent implements OnInit {
         }
       });
     });
+  }
+
+  onClick(elem: any) {
+    let current = elem.target;
+    this.movieService.trailerKey = '';
+    this.movieService.trailerClicked = false;
+
+    while (
+      String(current.attributes.class.value).toLowerCase() !=
+      'movieCardWrapper'.toLowerCase()
+    ) {
+      current = current.parentNode;
+    }
+
+    this.movieService
+      .getMovie(current.attributes.id.value)
+      .subscribe((item: any) =>
+        this.movieService.setMainImg({
+          id: item.id,
+          name: item.original_title ? item.original_title : item.original_name,
+          overview: item.overview,
+          image: item.poster_path,
+        })
+      );
+
+    this.movieService
+      .getTrailer(current.attributes.id.value)
+      .subscribe((data: any) => {
+        if (data) {
+          console.log(data);
+          data.results.forEach((trail: any) => {
+            if (trail.name === 'Official Trailer') {
+              this.movieService.trailerKey = trail.key;
+            }
+          });
+        }
+      });
   }
 }

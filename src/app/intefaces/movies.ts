@@ -8,6 +8,7 @@ export interface Movie {
   original_language: string;
   vote_average: number;
   overview: string;
+  trailerKey: string;
 }
 
 export interface MoviesResponse {
@@ -33,4 +34,9 @@ export interface MoviesResults {
   vote_average: number;
   vote_count: number;
   original_name: string;
+}
+
+export interface Trailer {
+  id: number;
+  results: [];
 }

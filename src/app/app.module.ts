@@ -23,6 +23,7 @@ import { MovieListVerticalComponent } from './movies/movie-list-vertical/movie-l
 import { MovieComponent } from './movies/movie/movie.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MovieListHorizontalComponent } from './movies/movie-list-horizontal/movie-list-horizontal.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MovieListHorizontalComponent } from './movies/movie-list-horizontal/mov
     FormsModule,
     HttpClientModule,
     InfiniteScrollModule,
+    YouTubePlayerModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
