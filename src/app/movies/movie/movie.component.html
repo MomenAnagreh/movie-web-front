@@ -1,4 +1,9 @@
-<div class="movieCardWrapper" id="{{ movie.id }}" #cards>
+<div
+  class="movieCardWrapper"
+  id="{{ movie.id }}"
+  #cards
+  (click)="changeImage($event)"
+>
   <div class="movieCardShadow">
     <div class="imgContainer">
       <img class="movieImg" [src]="movie.image" />

@@ -8,6 +8,8 @@ import { Movie, MoviesResponse, MoviesResults } from '../intefaces/movies';
   providedIn: 'root',
 })
 export class MoviesService {
+  mainImg: string = '';
+
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
   populerMovieList$ = this.populerMovies$.asObservable();
@@ -21,6 +23,8 @@ export class MoviesService {
   allMoviesList$ = this.allMovies$.asObservable();
 
   private readonly apiKey = 'b95dcb00aa819377efa7b1750dbad947';
+  private readonly movieApi = 'https://api.themoviedb.org/3/movie/';
+  private readonly longApiKey = `?api_key=${this.apiKey}`;
   private readonly populerAPI = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=`;
   private readonly trendingAPI = `https://api.themoviedb.org/3/trending/all/day?api_key=${this.apiKey}&page=`;
   private readonly imageURL = 'https://image.tmdb.org/t/p/w500';
@@ -70,5 +74,13 @@ export class MoviesService {
         }
       })
     );
+  }
+
+  getMovie(id: string) {
+    return this.http.get<MoviesResults>(this.movieApi + id + this.longApiKey);
+  }
+
+  setMainImg(path: string) {
+    this.mainImg = this.imageURL + path;
   }
 }

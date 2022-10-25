@@ -26,6 +26,15 @@
   height: 820px;
 }
 
+.header {
+  position: fixed;
+  min-height: 10%;
+  background-color: rgb(34, 34, 34, 0.5);
+  color: white;
+  width: 100%;
+  z-index: 2;
+}
+
 .story-card {
   display: flex;
   flex-direction: column;

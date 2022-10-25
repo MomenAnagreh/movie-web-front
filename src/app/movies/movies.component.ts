@@ -9,7 +9,9 @@ import { MoviesService } from '../services/movies.service';
 export class MoviesComponent implements OnInit {
   page: number = 1;
   constructor(public movieService: MoviesService) {
-    this.movieService.getMovies('populerMovies').subscribe();
+    this.movieService
+      .getMovies('populerMovies')
+      .subscribe((data) => (this.movieService.mainImg = data[0].image));
 
     this.movieService.getMovies('trendingMovies').subscribe();
 

@@ -1,6 +1,12 @@
 <div class="header">
   <app-header></app-header>
 </div>
+
+<div
+  class="imgDisplay"
+  style="background-image: url({{ movieService.mainImg }})"
+></div>
+
 <div
   class="MainWrapper"
   (scrolled)="onScroll()"
@@ -8,29 +14,29 @@
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="1000"
 >
-  <div class="listTitle">
-    <h1>Popular Movies</h1>
-    <button class="listScrollRight">
-      <i class="fas fa-angle-right"></i>
-    </button>
+  <div class="mainDivider">
+    <div class="listTitle">
+      <h1>Popular Movies</h1>
+      <button class="listScrollRight">
+        <i class="fas fa-angle-right"></i>
+      </button>
+    </div>
+    <app-movie-list-vertical
+      [movies]="movieService.populerMovieList$"
+    ></app-movie-list-vertical>
+
+    <div class="listTitle">
+      <h1>Trending Movies</h1>
+      <button class="listScrollRight">
+        <i class="fas fa-angle-right"></i>
+      </button>
+    </div>
+    <app-movie-list-vertical
+      [movies]="movieService.trendingMovieList$"
+    ></app-movie-list-vertical>
   </div>
-  <app-movie-list-vertical
-    [movies]="movieService.populerMovieList$"
-  ></app-movie-list-vertical>
 
-  <div class="listTitle">
-    <h1>Trending Movies</h1>
-    <button class="listScrollRight">
-      <i class="fas fa-angle-right"></i>
-    </button>
-  </div>
-  <app-movie-list-vertical
-    [movies]="movieService.trendingMovieList$"
-  ></app-movie-list-vertical>
-
-  <hr />
-
-  <div class="listTitle" style="padding-top: 200px; margin-bottom: 40px">
+  <div class="listTitle" style="padding-top: 100px; margin-bottom: 40px">
     <h1>All Movies</h1>
     <button class="listScrollRight">
       <i class="fas fa-angle-right"></i>

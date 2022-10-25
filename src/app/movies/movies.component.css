@@ -1,10 +1,23 @@
 .header {
   position: fixed;
-  height: 10%;
-  background-color: rgb(34, 34, 34);
+  min-height: 10%;
+  background-color: rgb(34, 34, 34, 0.5);
   color: white;
   width: 100%;
   z-index: 2;
+}
+
+.imgDisplay {
+  position: relative;
+  top: 18%;
+  width: 100%;
+  height: 30%;
+  transform: scale(1, 2);
+  background-color: rgb(34, 34, 34);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 100px;
+  background-position: center;
 }
 
 .MainWrapper {
@@ -12,7 +25,7 @@
   flex-direction: column;
   background-color: rgb(34, 34, 34);
   min-height: 100%;
-  padding-top: 120px;
+  padding-top: 170px;
 }
 
 .listTitle {
@@ -21,6 +34,7 @@
   align-items: center;
   margin-left: 70px;
   color: lightgrey;
+  z-index: 1;
 }
 
 .listScrollRight {
@@ -34,4 +48,10 @@
 
 .listScrollRight:hover {
   font-size: 30px;
+}
+
+.mainDivider {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 10px solid rgba(56, 55, 55, 0.5);
 }

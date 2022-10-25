@@ -21,15 +21,44 @@ export class MovieComponent implements OnInit {
 
   ngAfterViewChecked() {
     this.movieService.populerMovieList$.subscribe((arr) => {
-      arr.forEach((movie) => {
-        this.cards['_results'].map((elem: any) => {
-          if (String(elem.nativeElement.id) === String(movie.id)) {
-            elem.nativeElement.style.backgroundImage = `url(${movie.image})`;
-          }
-        });
-      });
+      this.addBackgroundImg(arr);
+    });
+
+    this.movieService.trendingMovieList$.subscribe((arr) => {
+      this.addBackgroundImg(arr);
+    });
+
+    this.movieService.allMoviesList$.subscribe((arr) => {
+      this.addBackgroundImg(arr);
     });
   }
 
   ngOnInit(): void {}
+
+  changeImage(elem: any) {
+    let current = elem.target;
+
+    while (
+      String(current.attributes.class.value).toLowerCase() !=
+      'movieCardWrapper'.toLowerCase()
+    ) {
+      current = current.parentNode;
+    }
+
+    console.log(current.attributes.id);
+
+    this.movieService
+      .getMovie(current.attributes.id.value)
+      .subscribe((item: any) => this.movieService.setMainImg(item.poster_path));
+  }
+
+  addBackgroundImg(arr: Movie[]) {
+    arr.forEach((movie) => {
+      this.cards['_results'].map((elem: any) => {
+        if (String(elem.nativeElement.id) === String(movie.id)) {
+          elem.nativeElement.style.backgroundImage = `url(${movie.image})`;
+        }
+      });
+    });
+  }
 }
