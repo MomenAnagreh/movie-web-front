@@ -35,13 +35,3 @@
 .listScrollRight:hover {
   font-size: 30px;
 }
-
-/* Changes */
-
-.inifityList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-items: center;
-}
