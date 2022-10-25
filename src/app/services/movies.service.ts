@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import {
   Movie,
   MoviesResponse,
@@ -15,6 +15,7 @@ import {
 export class MoviesService {
   mainImg: any = {};
   trailerKey: string = '';
+  providerLink: string = '';
   trailerClicked: boolean = false;
 
   private populerMovies: Movie[] = [];
@@ -37,6 +38,8 @@ export class MoviesService {
   private readonly imageURL = 'https://image.tmdb.org/t/p/w500';
   private readonly discovrAPI = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&sort_by=popularity.desc&include_adult=false&include_video=false&page=`;
   private readonly trailerAPI = `/videos?api_key=${this.apiKey}`;
+  private readonly providersAPIFirst = 'https://api.themoviedb.org/3/movie/';
+  private readonly providersAPISecond = `/watch/providers?api_key=${this.apiKey}`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -90,11 +93,12 @@ export class MoviesService {
   }
 
   getTrailer(id: string) {
-    return this.http.get<Trailer>(this.movieApi + id + this.trailerAPI).pipe(
-      catchError((err) => {
-        console.log(err);
-        return err;
-      })
+    return this.http.get<Trailer>(this.movieApi + id + this.trailerAPI);
+  }
+
+  getProviders(id: string) {
+    return this.http.get<Trailer>(
+      this.providersAPIFirst + id + this.providersAPISecond
     );
   }
 

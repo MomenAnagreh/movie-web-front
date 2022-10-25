@@ -1,8 +1,19 @@
-<div
-  class="header"
-  *ngIf="!movieService.trailerClicked || !movieService.trailerKey"
->
+<div class="header">
   <app-header></app-header>
+</div>
+
+<div
+  class="youtubeVideo"
+  *ngIf="movieService.trailerKey && movieService.trailerClicked"
+  (click)="goBack()"
+>
+  <youtube-player
+    videoId="{{ movieService.trailerKey }}"
+    suggestedQuality="highres"
+    [width]="1500"
+    [height]="890"
+    [playerVars]="playerConfig"
+  ></youtube-player>
 </div>
 
 <div
@@ -10,35 +21,36 @@
   style="background-image: url({{ movieService.mainImg.image }})"
 >
   <div class="imgDisplayDetails">
-    <div
-      class="imgDisplayDetailsTxt"
-      *ngIf="!movieService.trailerClicked || !movieService.trailerKey"
-    >
+    <div class="btn-notFound">
+      <a
+        [href]="
+          movieService.providerLink
+            ? movieService.providerLink + '/custompage'
+            : null
+        "
+        target="_blank"
+      >
+        <button class="trailerButton">Watch</button>
+      </a>
+      <button class="trailerButton" (click)="showVideo()">Play Trailer</button>
       <div
         *ngIf="!movieService.trailerKey && movieService.trailerClicked"
-        style="color: red; font-size: 20px"
+        style="color: red; font-size: 16px"
       >
         Video not found
       </div>
-      <button class="trailerButton" (click)="showVideo()">Play Trailer</button>
-      <div>
-        <h1>{{ movieService.mainImg.name }}:</h1>
-        <h2>{{ movieService.mainImg.overview }}</h2>
+
+      <div
+        *ngIf="!movieService.providerLink"
+        style="color: red; font-size: 16px"
+      >
+        No providers yet
       </div>
     </div>
-    <div
-      class="youtubeVideo"
-      *ngIf="movieService.trailerKey && movieService.trailerClicked"
-    >
-      <youtube-player
-        videoId="{{ movieService.trailerKey }}"
-        suggestedQuality="highres"
-        [width]="1992"
-        allow="autoplay"
-        [playerVars]="playerConfig"
-      ></youtube-player>
-    </div>
+    <h1>{{ movieService.mainImg.name }}:</h1>
+    <h2>{{ movieService.mainImg.overview }}</h2>
   </div>
+  <div class="img-shadow"></div>
 </div>
 
 <div
@@ -48,10 +60,6 @@
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="1000"
 >
-  <div
-    style="width: 100%; height: 300px"
-    *ngIf="movieService.trailerClicked && movieService.trailerKey"
-  ></div>
   <div class="mainDivider">
     <div class="listTitle">
       <h1>Popular Movies</h1>

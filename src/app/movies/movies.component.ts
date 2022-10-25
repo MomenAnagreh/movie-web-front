@@ -10,8 +10,6 @@ export class MoviesComponent implements OnInit {
   page: number = 1;
 
   playerConfig = {
-    controls: 0,
-    mute: 1,
     autoplay: 1,
   };
 
@@ -21,14 +19,23 @@ export class MoviesComponent implements OnInit {
     this.movieService.getMovies('populerMovies').subscribe((data) => {
       this.movieService.mainImg = data[0];
       this.movieService
+        .getProviders(String(data[0].id))
+        .subscribe((providers: any) => {
+          if (providers.results.US) {
+            this.movieService.providerLink = providers.results.US.link;
+          } else {
+            Object.values(providers.results).forEach((elem: any, i: number) => {
+              if (i === 0) this.movieService.providerLink = elem.link;
+            });
+          }
+        });
+      this.movieService
         .getTrailer(String(data[0].id))
         .subscribe((data: any) => {
           if (data) {
-            console.log(data);
             data.results.forEach((trail: any) => {
               if (trail.name === 'Official Trailer') {
                 this.movieService.trailerKey = trail.key;
-                console.log(this.movieService.trailerKey);
               }
             });
           }
@@ -46,5 +53,13 @@ export class MoviesComponent implements OnInit {
 
   showVideo() {
     this.movieService.trailerClicked = true;
+    if (this.movieService.trailerKey) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  goBack() {
+    this.movieService.trailerClicked = false;
+    document.body.style.overflow = 'auto';
   }
 }

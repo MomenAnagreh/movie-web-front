@@ -72,11 +72,22 @@ export class MovieComponent implements OnInit {
       .getTrailer(current.attributes.id.value)
       .subscribe((data: any) => {
         if (data) {
-          console.log(data);
           data.results.forEach((trail: any) => {
             if (trail.name === 'Official Trailer') {
               this.movieService.trailerKey = trail.key;
             }
+          });
+        }
+      });
+
+    this.movieService
+      .getProviders(current.attributes.id.value)
+      .subscribe((providers: any) => {
+        if (providers.results.US) {
+          this.movieService.providerLink = providers.results.US.link;
+        } else {
+          Object.values(providers.results).forEach((elem: any, i: number) => {
+            if (i === 0) this.movieService.providerLink = elem.link;
           });
         }
       });
