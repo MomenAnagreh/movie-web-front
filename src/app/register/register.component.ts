@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { User } from '../intefaces/contact';
+import { User } from '../services/intefaces/contact';
 import { HomePageService } from '../services/home-page.service';
 import { UsersService } from '../services/users.service';
 

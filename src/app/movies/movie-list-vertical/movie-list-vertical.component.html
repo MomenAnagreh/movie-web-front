@@ -1,11 +1,8 @@
-<ul class="verticalMovieListWrapper" id="0" #list>
-  <app-movie *ngFor="let movie of movies | async" [movie]="movie"> </app-movie>
-
-  <i
-    class="fas fa-angle-right"
-    id="scrollRight"
-    (click)="scrollRight($event)"
-  ></i>
-
-  <i class="fas fa-angle-left" id="scrollLeft" (click)="scrollLeft($event)"></i>
+<ul class="verticalMovieListWrapper" id="1">
+  <app-movie-card
+    *ngFor="let movie of movies | async"
+    [movie]="movie"
+    style="margin-right: 30px; margin-bottom: 100px"
+  >
+  </app-movie-card>
 </ul>

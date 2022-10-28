@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { User } from '../intefaces/contact';
+import { User } from '../services/intefaces/contact';
 import { HomePageService } from '../services/home-page.service';
 import { UsersService } from '../services/users.service';
 
@@ -36,10 +36,9 @@ export class SignInComponent implements OnInit {
         this.autharized = true;
         this.homePageService.isLoggedIn = true;
         this.userService.users.map((user) => {
-          if (user.email === this.contact.email) user.selected = true;
-          else user.selected = false;
+          user.selected = true;
         });
-      }
+      } else user.selected = false;
     });
   }
 

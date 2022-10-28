@@ -16,42 +16,8 @@
   ></youtube-player>
 </div>
 
-<div
-  class="imgDisplay"
-  style="background-image: url({{ movieService.mainImg.image }})"
->
-  <div class="imgDisplayDetails">
-    <div class="btn-notFound">
-      <a
-        [href]="
-          movieService.providerLink
-            ? movieService.providerLink + '/custompage'
-            : null
-        "
-        target="_blank"
-      >
-        <button class="trailerButton">Watch</button>
-      </a>
-      <button class="trailerButton" (click)="showVideo()">Play Trailer</button>
-      <div
-        *ngIf="!movieService.trailerKey && movieService.trailerClicked"
-        style="color: red; font-size: 16px"
-      >
-        Video not found
-      </div>
-
-      <div
-        *ngIf="!movieService.providerLink"
-        style="color: red; font-size: 16px"
-      >
-        No providers yet
-      </div>
-    </div>
-    <h1>{{ movieService.mainImg.name }}:</h1>
-    <h2>{{ movieService.mainImg.overview }}</h2>
-  </div>
-  <div class="img-shadow"></div>
-</div>
+<app-movie-display-bar [movies]="movieService.populerMovieList$">
+</app-movie-display-bar>
 
 <div
   class="MainWrapper"
@@ -62,24 +28,24 @@
 >
   <div class="mainDivider">
     <div class="listTitle">
-      <h1>Popular Movies</h1>
-      <button class="listScrollRight">
-        <i class="fas fa-angle-right"></i>
-      </button>
-    </div>
-    <app-movie-list-vertical
-      [movies]="movieService.populerMovieList$"
-    ></app-movie-list-vertical>
-
-    <div class="listTitle">
       <h1>Trending Movies</h1>
       <button class="listScrollRight">
         <i class="fas fa-angle-right"></i>
       </button>
     </div>
-    <app-movie-list-vertical
+    <app-movie-list-horizontal
       [movies]="movieService.trendingMovieList$"
-    ></app-movie-list-vertical>
+    ></app-movie-list-horizontal>
+
+    <div class="listTitle">
+      <h1>Top Rated Movies</h1>
+      <button class="listScrollRight">
+        <i class="fas fa-angle-right"></i>
+      </button>
+    </div>
+    <app-movie-list-horizontal
+      [movies]="movieService.topRatedMoviesList$"
+    ></app-movie-list-horizontal>
   </div>
 
   <div class="listTitle" style="padding-top: 100px; margin-bottom: 40px">
@@ -88,7 +54,15 @@
       <i class="fas fa-angle-right"></i>
     </button>
   </div>
-  <app-movie-list-horizontal
+  <app-movie-list-vertical
     [movies]="movieService.allMoviesList$"
-  ></app-movie-list-horizontal>
+  ></app-movie-list-vertical>
+
+  <button
+    class="scrollTopBtn"
+    [ngClass]="{ 'show-scrollTop': windowScrolled }"
+    (click)="scrollToTop()"
+  >
+    <i class="fa fa-chevron-up"></i>
+  </button>
 </div>

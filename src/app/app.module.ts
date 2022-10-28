@@ -24,6 +24,9 @@ import { MovieComponent } from './movies/movie/movie.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MovieListHorizontalComponent } from './movies/movie-list-horizontal/movie-list-horizontal.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { MovieCardComponent } from './movies/movie-card/movie-card.component';
+import { MovieDisplayBarComponent } from './movies/movie-display-bar/movie-display-bar.component';
+import { MovieDisplayComponent } from './movies/movie-display/movie-display.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     MovieListVerticalComponent,
     MovieComponent,
     MovieListHorizontalComponent,
+    MovieCardComponent,
+    MovieDisplayBarComponent,
+    MovieDisplayComponent,
   ],
   imports: [
     BrowserModule,

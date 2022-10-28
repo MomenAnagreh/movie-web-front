@@ -1,6 +1,8 @@
 <ul class="horizontalMovieListWrapper" id="0" #list>
-  <app-movie-card *ngFor="let movie of movies | async" [movie]="movie">
-  </app-movie-card>
+  <app-movie-display
+    *ngFor="let movie of movies | async"
+    [movie]="movie"
+  ></app-movie-display>
 
   <i class="fas fa-angle-right" id="scrollRight" (click)="scrollRight()"></i>
 

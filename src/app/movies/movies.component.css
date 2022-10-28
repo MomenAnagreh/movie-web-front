@@ -1,15 +1,16 @@
 .header {
   position: fixed;
-  min-height: 10%;
+  min-height: 110px;
   background-color: rgb(34, 34, 34, 0.5);
   color: white;
   width: 100%;
+  top: 0;
   z-index: 2;
 }
 
 .youtubeVideo {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   height: 100%;
   width: 100%;
   background-color: rgba(34, 34, 34, 0.7);
@@ -24,103 +25,10 @@
   overflow: hidden;
 }
 
-.imgDisplay {
-  position: relative;
-  top: 18%;
-  width: 100%;
-  height: 25%;
-  transform: scale(1, 2);
-  background-color: rgb(34, 34, 34);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding-bottom: 140px;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  overflow-x: hidden;
-}
-.img-shadow {
-  background: rgba(0, 0, 0, 0.6);
-  background-image: linear-gradient(
-    0deg,
-    rgba(24, 24, 24, 0.9) 0,
-    transparent 60%,
-    #000000cc
-  );
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
-}
-
-.imgDisplayDetails {
-  display: flex;
-  width: 100%;
-  height: 80%;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding-left: 7%;
-  z-index: 1;
-  padding-top: 50px;
-}
-
-.btn-notFound {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.trailerButton {
-  width: 125px;
-  background-color: rgb(37, 37, 37);
-  color: white;
-  cursor: pointer;
-  font-family: monospace;
-  font-size: 12px;
-  padding: 7px;
-  margin-bottom: 5px;
-  margin-right: 20px;
-  border: none;
-  border-radius: 15px;
-}
-
-.trailerButton:hover {
-  box-shadow: 1px 1px 15px rgb(44, 44, 44);
-}
-
-.imgDisplayDetails h1 {
-  padding: 0px;
-  margin: 0px;
-  letter-spacing: 0.3rem;
-  font-size: 40px;
-  font-family: "Gill Sans", sans-serif;
-  max-width: 50%;
-}
-
-.imgDisplayDetails h2 {
-  font-family: "Gill Sans", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.15rem;
-  max-width: 50%;
-  min-height: 20%;
-}
-
 .MainWrapper {
   display: flex;
   flex-direction: column;
   background-color: rgb(34, 34, 34);
-  min-height: 100%;
-  padding-top: 170px;
 }
 
 .listTitle {
@@ -129,7 +37,6 @@
   align-items: center;
   margin-left: 70px;
   color: lightgrey;
-  z-index: 0;
 }
 
 .listScrollRight {
@@ -149,4 +56,25 @@
   display: flex;
   flex-direction: column;
   border-bottom: 10px solid rgba(56, 55, 55, 0.5);
+  z-index: 1;
+}
+
+.scrollTopBtn {
+  position: fixed;
+  right: 2%;
+  bottom: 5%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 0, 0, 0.5);
+  color: white;
+  border: none;
+  z-index: 1;
+  cursor: pointer;
+  display: none;
+}
+.show-scrollTop {
+  display: flex;
 }

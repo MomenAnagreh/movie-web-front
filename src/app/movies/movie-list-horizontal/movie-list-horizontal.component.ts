@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-movie-list-horizontal',
@@ -7,8 +8,23 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MovieListHorizontalComponent implements OnInit {
   @Input() movies: any;
+  @ViewChild('list') list!: ElementRef;
 
-  constructor() {}
+  constructor(public movieService: MoviesService) {}
 
   ngOnInit(): void {}
+
+  scrollRight() {
+    this.list.nativeElement.scrollTo({
+      left: this.list.nativeElement.scrollLeft + 1500,
+      behavior: 'smooth',
+    });
+  }
+
+  scrollLeft() {
+    this.list.nativeElement.scrollTo({
+      left: this.list.nativeElement.scrollLeft - 1500,
+      behavior: 'smooth',
+    });
+  }
 }

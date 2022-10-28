@@ -1,0 +1,19 @@
+<div class="movieCardWrapper" id="{{ movie.id }}" #cards>
+  <div class="movieCardShadow">
+    <div class="btnContainer">
+      <button class="btn">Watch</button>
+      <button class="btn">Details</button>
+      <button class="btn" (click)="showVideo(movie.trailerKey)">Trailer</button>
+      <p
+        *ngIf="movieService.trailerClicked && !movieService.trailerKey"
+        style="color: red; margin: 0px; font-size: 22px"
+      >
+        No Trailer Yet
+      </p>
+    </div>
+    <div class="movieDetails">
+      <h1>{{ movie.name }}:</h1>
+      <h2>{{ movie.overview }}</h2>
+    </div>
+  </div>
+</div>
