@@ -19,6 +19,7 @@ export class MovieCardComponent implements OnInit {
   @ViewChildren('cards') cards!: QueryList<any>;
   current!: any;
   @ViewChild('readMoreBtn') readMoreBtn!: any;
+  private url: string = 'https://www.themoviedb.org/movie/';
 
   constructor(public movieService: MoviesService) {}
 
@@ -34,5 +35,7 @@ export class MovieCardComponent implements OnInit {
     this.readMoreBtn.nativeElement.style.visibility = 'hidden';
   }
 
-  readMore() {}
+  readMore(movie: Movie) {
+    window.open(this.url + `${movie.id} - ${movie.name}`, '_blank');
+  }
 }

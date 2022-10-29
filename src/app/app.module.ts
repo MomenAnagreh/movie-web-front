@@ -15,7 +15,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { MainLogoComponent } from './home-page/main-logo/main-logo.component';
 import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviesComponent } from './movies/movies.component';
 import { AuthGuard } from './auth.guard';
@@ -58,6 +58,7 @@ import { MovieDisplayComponent } from './movies/movie-display/movie-display.comp
     HttpClientModule,
     InfiniteScrollModule,
     YouTubePlayerModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

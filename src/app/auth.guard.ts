@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { routes } from './app-routing.module';
-import { HomePageService } from './services/home-page.service';
+import { UsersService } from './services/users.service';
 
 @Injectable()
 export class AuthGuard {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private homePageService: HomePageService
+    private userService: UsersService
   ) {}
 
   canActivate(routeerstate?: any) {
@@ -39,6 +39,6 @@ export class AuthGuard {
   isLoggedIn() {
     //write your authentication and authorization code and return true or false
 
-    return this.homePageService.isLoggedIn;
+    return this.userService.getIsLoggedIn();
   }
 }

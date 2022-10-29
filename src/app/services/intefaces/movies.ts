@@ -9,6 +9,7 @@ export interface Movie {
   vote_average: number;
   overview: string;
   trailerKey: string;
+  watch: string;
 }
 
 export interface MoviesResponse {

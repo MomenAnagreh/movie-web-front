@@ -1,6 +1,7 @@
 <div
   class="movieCardWrapper"
   id="{{ movie.id }}"
+  (click)="readMore(movie)"
   #cards
   (mouseover)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
@@ -23,20 +24,33 @@
     </div>
 
     <div class="movieDetails">
-      <h1 style="font-size: 125%">{{ movie.name }}</h1>
+      <h1 style="font-size: 125%; text-transform: capitalize">
+        {{ movie.name }}
+      </h1>
 
-      <div class="dateLangRateWrapp">
-        <div class="dateLangRate">{{ movie.release_date }}</div>
-        <div class="dateLangRate">{{ movie.original_language }}</div>
-        <div class="dateLangRate" style="color: yellow">
-          {{ movie.vote_average }}
+      <div class="bottomPart">
+        <div class="dateLangRateWrapp">
+          <div class="dateLangRate">{{ movie.release_date }}</div>
+          <div class="dateLangRate">{{ movie.original_language }}</div>
+          <div class="dateLangRate" style="color: yellow">
+            {{ movie.vote_average }}
+          </div>
         </div>
+
+        <p class="movieDescription">{{ movie.overview }}</p>
       </div>
 
-      <p class="movieDescription">{{ movie.overview }}</p>
-      <button class="detailsBtn" (click)="readMore()" #readMoreBtn>
+      <a
+        class="detailsBtn"
+        href="https://www.themoviedb.org/movie/{{ movie.id }}-{{ movie.name }}"
+        target="_blank"
+        #readMoreBtn
+      >
+        <div>Details</div>
+      </a>
+      <!-- <button class="detailsBtn" (click)="readMore()" #readMoreBtn>
         Details
-      </button>
+      </button> -->
     </div>
   </div>
 </div>

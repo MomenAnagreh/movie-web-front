@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, EMPTY, from, of } from 'rxjs';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import {
   Movie,
   MoviesResponse,
@@ -15,7 +15,6 @@ import {
 export class MoviesService {
   trailerKey: string = '';
   trailerClicked: boolean = false;
-  providerLink: string = '';
 
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
@@ -60,8 +59,8 @@ export class MoviesService {
           const movie = {
             id: item.id,
             name: item.original_title
-              ? item.original_title
-              : item.original_name,
+              ? item.original_title.toLowerCase()
+              : item.original_name.toLowerCase(),
             overview: item.overview,
             image: this.imageURL + item.poster_path,
             backdrop_path: this.imageURL + item.backdrop_path,
@@ -71,6 +70,8 @@ export class MoviesService {
             original_language: item.original_language,
             vote_average: item.vote_average.toFixed(1),
             trailerKey: '',
+            watch: '',
+            movieLink: null,
           };
 
           if (name !== 'trendingMovies') {
@@ -86,6 +87,17 @@ export class MoviesService {
                 });
               });
             });
+            this.getProviders(String(item.id)).subscribe((data: any) => {
+              data.subscribe((elem: Trailer) => {
+                for (let [key, value] of Object.entries(elem.results)) {
+                  if (key === 'US') movie.watch = value['link'];
+                }
+              });
+            });
+          }
+
+          if (movie.name === 'black adam') {
+            movie.watch = 'https://www.liiivideo.com/embed-x88jaq174i46.html';
           }
 
           return movie;
@@ -141,8 +153,25 @@ export class MoviesService {
   }
 
   getProviders(id: string) {
-    return this.http.get<Trailer>(
-      this.providersAPIFirst + id + this.providersAPISecond
-    );
+    return this.http
+      .get<Trailer>(this.providersAPIFirst + id + this.providersAPISecond)
+      .pipe(
+        switchMap(async (value) => {
+          let obs1$ = from([value]);
+
+          return obs1$.pipe(
+            map((value) => {
+              if (!value) {
+                throw new Error('cannot get');
+              }
+              return value;
+            }),
+            catchError((error) => {
+              let obs2$ = of(error);
+              return obs2$;
+            })
+          );
+        })
+      );
   }
 }

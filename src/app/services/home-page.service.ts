@@ -5,7 +5,5 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class HomePageService {
-  isLoggedIn: boolean = false;
-
   constructor() {}
 }

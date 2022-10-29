@@ -5,21 +5,79 @@ import { User } from './intefaces/contact';
   providedIn: 'root',
 })
 export class UsersService {
-  public users: User[] = [];
-  private userFound: boolean = false;
+  private users: User[] = [];
+  private isLoggedIn: boolean = false;
 
   constructor() {}
 
-  addUser(info: User) {
-    this.userFound = false;
-    this.users.map((user) => {
-      if (user.email === info.email) this.userFound = true;
+  checkEmail(email: string) {
+    let check = false;
+    this.users.forEach((user: User): any => {
+      if (user.email === email) {
+        check = true;
+      }
     });
-    if (this.userFound) {
-      return false;
-    } else {
-      this.users.push(info);
-      return true;
-    }
+    return check;
+  }
+
+  addUser(info: User) {
+    const user = {
+      username: info.username,
+      email: info.email,
+      password: info.password,
+      role: info.role,
+    };
+
+    this.users.push(user);
+  }
+
+  testEmail(email: string) {
+    let check = false;
+    this.users.forEach((user): any => {
+      if (user.email === email) {
+        check = true;
+      }
+    });
+    return check;
+  }
+
+  testPassword(email: string, pass: any) {
+    let check = false;
+    this.users.forEach((user): any => {
+      if (user.email === email) {
+        if (user.password === pass) {
+          check = true;
+        }
+      }
+    });
+    return check;
+  }
+
+  getSelectedUser() {
+    let username = '';
+    this.users.forEach((user: User) => {
+      if (user.selected) username = user.username as string;
+    });
+    return username;
+  }
+
+  setSelectedUser(email: string) {
+    this.users.forEach((user): any => {
+      if (user.email === email) user.selected = true;
+    });
+  }
+
+  removeSelectedUser() {
+    this.users.forEach((user) => {
+      user.selected = false;
+    });
+  }
+
+  setIsLoggedIn(value: boolean) {
+    this.isLoggedIn = value;
+  }
+
+  getIsLoggedIn() {
+    return this.isLoggedIn;
   }
 }

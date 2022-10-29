@@ -1,13 +1,7 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-movies',
@@ -25,7 +19,8 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     public movieService: MoviesService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    public userService: UsersService
   ) {}
 
   ngOnInit() {

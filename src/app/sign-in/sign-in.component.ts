@@ -1,7 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { User } from '../services/intefaces/contact';
-import { HomePageService } from '../services/home-page.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -11,58 +15,58 @@ import { UsersService } from '../services/users.service';
 })
 export class SignInComponent implements OnInit {
   @ViewChild('pass') pass!: ElementRef<any>;
+  form!: FormGroup;
+  showPassword: boolean = false;
 
-  contact: User = {};
-  autharized: boolean = false;
-  show: boolean = false;
-  activate: boolean = false;
-  noData: boolean = false;
+  get email(): FormControl {
+    return this.form.get('email') as FormControl;
+  }
 
-  constructor(
-    public homePageService: HomePageService,
-    public userService: UsersService
-  ) {}
+  get password(): FormControl {
+    return this.form.get('password') as FormControl;
+  }
 
-  ngOnInit(): void {}
+  constructor(private userService: UsersService, private fb: FormBuilder) {}
 
-  onSubmit(form: NgForm) {
-    this.autharized = false;
-    // this.activate = false;
-    this.userService.users.map((user) => {
-      if (
-        user.email === this.contact.email &&
-        user.password === this.contact.password
-      ) {
-        this.autharized = true;
-        this.homePageService.isLoggedIn = true;
-        this.userService.users.map((user) => {
-          user.selected = true;
-        });
-      } else user.selected = false;
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      email: ['', [Validators.required], [this.asyncCheckEmail]],
+      password: ['', [Validators.required], [this.asyncCheckPassword]],
     });
   }
 
-  showError() {
-    if (!this.autharized && this.contact.password && this.contact.email) {
-      this.activate = true;
-    } else {
-      this.activate = false;
-    }
-    if (!this.contact.password && !this.contact.email) {
-      this.noData = true;
-    } else {
-      this.noData = false;
-    }
-    if (!this.contact.password && this.contact.email) {
-      this.show = true;
-    } else {
-      this.show = false;
-    }
+  onSubmit(form: NgForm) {}
+
+  onClick() {
+    this.userService.setSelectedUser(this.email.value);
+    this.userService.setIsLoggedIn(true);
   }
 
+  private asyncCheckEmail = async (control: FormControl) => {
+    if (this.userService.testEmail(control.value)) {
+      return {
+        valid: true,
+      };
+    }
+    return { valid: false };
+  };
+
+  private asyncCheckPassword = async (control: FormControl) => {
+    if (this.userService.testPassword(this.email.value, control.value)) {
+      return {
+        valid: true,
+      };
+    }
+    return { valid: false };
+  };
+
   showPass() {
-    if (this.pass.nativeElement.type === 'password')
+    if (this.pass.nativeElement.type === 'password') {
       this.pass.nativeElement.type = 'text';
-    else this.pass.nativeElement.type = 'password';
+      this.showPassword = true;
+    } else {
+      this.showPassword = false;
+      this.pass.nativeElement.type = 'password';
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomePageService } from 'src/app/services/home-page.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-main-logo',
@@ -7,7 +7,11 @@ import { HomePageService } from 'src/app/services/home-page.service';
   styleUrls: ['./main-logo.component.css'],
 })
 export class MainLogoComponent implements OnInit {
-  constructor(public homePageService: HomePageService) {}
+  isLoggedIn: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(public userService: UsersService) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.userService.getIsLoggedIn();
+  }
 }

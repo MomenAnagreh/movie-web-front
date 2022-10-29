@@ -51,12 +51,12 @@
   text-decoration: none;
   outline: none;
   background-color: rgb(65, 65, 65);
-  width: 400px;
-  height: 70px;
-  border-radius: 5px;
   border: none;
-  margin-bottom: 20px;
   font-size: 24px;
+  width: 440px;
+  height: 60px;
+  border-radius: 5px;
+  margin-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
   color: white;
@@ -64,6 +64,29 @@
 
 input[type="email"] {
   width: 500px;
+}
+
+.showPass {
+  background-color: rgb(65, 65, 65);
+  height: 60px;
+  width: 90px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin: 0px;
+}
+
+.passInputWrapp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 540px;
+  height: 70px;
+  margin-top: 10px;
+  background-color: rgb(65, 65, 65);
+  border-radius: 5px;
 }
 
 .signInButton {
@@ -79,6 +102,11 @@ input[type="email"] {
   margin-top: 40px;
   border: none;
   cursor: pointer;
+}
+
+.signInButton:disabled {
+  background-color: grey;
+  cursor: default;
 }
 
 .help {
@@ -151,21 +179,7 @@ input[type="email"] {
   opacity: 0.8;
 }
 
-.passInputWrapp {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.showPass {
-  background-color: rgb(65, 65, 65);
-  height: 73px;
-  min-width: 90px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  color: white;
-  margin: 0px;
-  border-radius: 5px;
-  margin-left: 10px;
+.error {
+  color: red;
+  margin-top: 15px;
 }
