@@ -84,7 +84,7 @@
             class="error"
           >
             Password should be longer than
-            {{ pwd.get('password')?.errors?.['requiredLength'] }}
+            {{ pwd.get('password')?.errors?.['requiredLength'] }} characters
           </div>
 
           <div class="passInputWrapp">
@@ -117,7 +117,7 @@
 
           <div
             style="color: red; margin-left: 10px"
-            *ngIf="!roles.errors?.['selected'] && roles.touched"
+            *ngIf="roles.touched && !roles.errors?.['selected']"
           >
             Please choose a role
           </div>
@@ -132,6 +132,7 @@
         >
           Sign up
         </button>
+
         <p style="font-size: 20px">or</p>
         <a routerLink="/signin" style="color: white; font-size: 20px">
           Sign in

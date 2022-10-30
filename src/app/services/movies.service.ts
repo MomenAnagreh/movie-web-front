@@ -71,7 +71,6 @@ export class MoviesService {
             vote_average: item.vote_average.toFixed(1),
             trailerKey: '',
             watch: '',
-            movieLink: null,
           };
 
           if (name !== 'trendingMovies') {
@@ -94,10 +93,6 @@ export class MoviesService {
                 }
               });
             });
-          }
-
-          if (movie.name === 'black adam') {
-            movie.watch = 'https://www.liiivideo.com/embed-x88jaq174i46.html';
           }
 
           return movie;

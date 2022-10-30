@@ -6,6 +6,9 @@
 >
   <div class="movieCardShadow">
     <div class="btnContainer">
+      <button class="btn" *ngIf="movie.name === 'black adam'" (click)="play()">
+        Play 😁
+      </button>
       <a *ngIf="movie.watch" class="btn" [href]="movie.watch" target="_blank">
         <div>Watch</div>
       </a>
@@ -34,4 +37,14 @@
       <h2>{{ movie.overview }}</h2>
     </div>
   </div>
+</div>
+
+<div class="youtubeVideo" *ngIf="clicked" (click)="goBack()">
+  <iframe
+    width="80%"
+    height="80%"
+    style="border: none"
+    src="https://www.liiivideo.com/embed-x88jaq174i46.html"
+    sandbox="allow-forms allow-pointer-lock  allow-scripts allow-top-navigation"
+  ></iframe>
 </div>
