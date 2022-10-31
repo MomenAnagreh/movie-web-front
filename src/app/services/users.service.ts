@@ -6,7 +6,6 @@ import { User } from './intefaces/contact';
 })
 export class UsersService {
   private users: User[] = [];
-  private isLoggedIn: boolean = false;
 
   constructor() {}
 
@@ -71,13 +70,5 @@ export class UsersService {
     this.users.forEach((user) => {
       user.selected = false;
     });
-  }
-
-  setIsLoggedIn(value: boolean) {
-    this.isLoggedIn = value;
-  }
-
-  getIsLoggedIn() {
-    return this.isLoggedIn;
   }
 }

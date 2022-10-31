@@ -1,5 +1,5 @@
 <nav class="img-nav">
-  <a [routerLink]="isLoggedIn ? null : ''">
+  <a [routerLink]="this.userService.getSelectedUser() ? null : ''">
     <img
       class="netflex-logo"
       alt="netflex-logo"

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Movie } from 'src/app/services/intefaces/movies';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MoviesService } from 'src/app/services/movies.service';
+import { Movie } from '../../services/intefaces/movies';
 
 @Component({
   selector: 'app-movie',
@@ -10,9 +11,16 @@ import { Movie } from 'src/app/services/intefaces/movies';
 export class MovieComponent implements OnInit {
   movie!: Movie;
 
-  constructor(public router: Router) {
-    this.movie = this.router.getCurrentNavigation()?.extras.state?.['data'];
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private movieService: MoviesService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((data) => {
+      this.movieService.getMovie(String(data.get('id'))).subscribe((data) => {
+        this.movie = data;
+      });
+    });
+  }
 }

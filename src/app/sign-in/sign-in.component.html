@@ -1,6 +1,5 @@
 <div class="mainWrapper">
   <div class="img-shadow">
-    <app-main-logo></app-main-logo>
     <div class="divider"></div>
 
     <form class="signin-container" [formGroup]="form">
@@ -13,6 +12,7 @@
           placeholder="Email"
           id="email"
           name="email"
+          style="height: 70px"
           formControlName="email"
         />
 
@@ -20,7 +20,7 @@
           <input
             type="password"
             class="inputField"
-            style="width: 440px; border-radius: none; margin: 0px; height: 60px"
+            style="border-radius: none; margin: 0px"
             placeholder="Password"
             id="password"
             name="password"
@@ -72,8 +72,6 @@
         </div>
       </div>
     </form>
-
-    <div class="divider"></div>
 
     <div class="footer">
       <app-footer></app-footer>

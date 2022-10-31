@@ -13,7 +13,13 @@ export const routes: Routes = [
   { path: 'signup', component: RegisterComponent },
   { path: 'signin', component: SignInComponent },
   // { path: 'movies', component: MoviesComponent, canActivate: [AuthGuard] },
-  { path: 'movies', component: MoviesComponent },
+  {
+    path: 'movies',
+    children: [
+      { path: '', component: MoviesComponent },
+      { path: 'movie/:id/:name', component: MovieComponent },
+    ],
+  },
   { path: 'movie', component: MovieComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

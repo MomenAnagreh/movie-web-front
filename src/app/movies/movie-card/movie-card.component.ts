@@ -6,8 +6,9 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Movie } from '../../services/intefaces/movies';
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-movie-card',
@@ -21,7 +22,7 @@ export class MovieCardComponent implements OnInit {
   @ViewChild('readMoreBtn') readMoreBtn!: any;
   private url: string = 'https://www.themoviedb.org/movie/';
 
-  constructor(public movieService: MoviesService) {}
+  constructor(public movieService: MoviesService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -36,6 +37,10 @@ export class MovieCardComponent implements OnInit {
   }
 
   readMore(movie: Movie) {
-    window.open(this.url + `${movie.id} - ${movie.name}`, '_blank');
+    this.router.navigate([
+      '/movies/movie',
+      movie.id,
+      movie.name.split(' ').join('-'),
+    ]);
   }
 }

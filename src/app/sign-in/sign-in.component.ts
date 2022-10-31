@@ -39,7 +39,6 @@ export class SignInComponent implements OnInit {
 
   onClick() {
     this.userService.setSelectedUser(this.email.value);
-    this.userService.setIsLoggedIn(true);
   }
 
   private asyncCheckEmail = async (control: FormControl) => {

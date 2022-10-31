@@ -6,7 +6,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Movie } from '../../services/intefaces/movies';
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 @Component({
   selector: 'app-movie-display',

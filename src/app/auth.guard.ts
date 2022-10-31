@@ -39,6 +39,6 @@ export class AuthGuard {
   isLoggedIn() {
     //write your authentication and authorization code and return true or false
 
-    return this.userService.getIsLoggedIn();
+    return this.userService.getSelectedUser();
   }
 }

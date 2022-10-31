@@ -42,15 +42,15 @@
 
       <a
         class="detailsBtn"
-        href="https://www.themoviedb.org/movie/{{ movie.id }}-{{ movie.name }}"
-        target="_blank"
         #readMoreBtn
+        [routerLink]="[
+          '/movies/movie',
+          movie.id,
+          movie.name.split(' ').join('-')
+        ]"
       >
         <div>Details</div>
       </a>
-      <!-- <button class="detailsBtn" (click)="readMore()" #readMoreBtn>
-        Details
-      </button> -->
     </div>
   </div>
 </div>

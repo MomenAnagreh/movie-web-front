@@ -79,9 +79,6 @@ export class MoviesService {
                 item.results.forEach((trail: any) => {
                   if (trail.type === 'Trailer') {
                     movie.trailerKey = trail.key;
-                    if (this.trailerKey && this.trailerClicked) {
-                      document.body.style.overflow = 'hidden';
-                    }
                   }
                 });
               });
@@ -99,31 +96,49 @@ export class MoviesService {
         });
       }),
       tap((movies: Movie[]) => {
+        movies.sort(() => Math.random() - 0.5);
         if (name === 'populerMovies') {
           this.populerMovies = movies;
-          this.populerMovies$.next(
-            this.populerMovies.sort(() => Math.random() - 0.5)
-          );
+          this.populerMovies$.next(this.populerMovies);
         } else if (name === 'trendingMovies') {
           this.trendingMovies = movies;
-          this.trendingMovies$.next(
-            this.trendingMovies.sort(() => Math.random() - 0.5)
-          );
+          this.trendingMovies$.next(this.trendingMovies);
         } else if (name === 'discovrMovies') {
           this.allMovies = [...this.allMovies, ...movies];
           this.allMovies$.next(this.allMovies);
         } else if (name === 'topRatedMovies') {
           this.topRatedMovies = movies;
-          this.topRatedMovies$.next(
-            this.topRatedMovies.sort(() => Math.random() - 0.5)
-          );
+          this.topRatedMovies$.next(this.topRatedMovies);
         }
       })
     );
   }
 
   getMovie(id: string) {
-    return this.http.get<MoviesResults>(this.movieApi + id + this.longApiKey);
+    return this.http
+      .get<MoviesResults>(this.movieApi + id + this.longApiKey)
+      .pipe(
+        map((item: MoviesResults): any => {
+          const movie = {
+            id: item.id,
+            name: item.original_title
+              ? item.original_title.toLowerCase()
+              : item.original_name.toLowerCase(),
+            overview: item.overview,
+            image: this.imageURL + item.poster_path,
+            backdrop_path: this.imageURL + item.backdrop_path,
+            release_date: item.release_date
+              ? item.release_date.slice(0, 4)
+              : 'null',
+            original_language: item.original_language,
+            vote_average: item.vote_average.toFixed(1),
+            trailerKey: '',
+            watch: '',
+          };
+
+          return movie;
+        })
+      );
   }
 
   getTrailer(id: string) {

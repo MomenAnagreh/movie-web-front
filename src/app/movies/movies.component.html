@@ -1,12 +1,9 @@
-<div class="header">
-  <app-header></app-header>
-</div>
-
 <div
   class="youtubeVideo"
   *ngIf="movieService.trailerKey && movieService.trailerClicked"
   (click)="goBack()"
 >
+  <button class="exitVideo">X</button>
   <youtube-player
     videoId="{{ movieService.trailerKey }}"
     suggestedQuality="highres"
