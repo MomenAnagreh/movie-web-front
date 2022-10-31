@@ -53,16 +53,29 @@ export class UsersService {
   }
 
   getSelectedUser() {
-    let username = '';
+    let username = { username: '', color: '' };
     this.users.forEach((user: User) => {
-      if (user.selected) username = user.username as string;
+      if (user.selected) {
+        username.username = user.username?.toUpperCase() as string;
+        username.color = user.color as string;
+      }
     });
     return username;
   }
 
   setSelectedUser(email: string) {
     this.users.forEach((user): any => {
-      if (user.email === email) user.selected = true;
+      if (user.email === email) {
+        user.selected = true;
+      }
+      if (!user.color) {
+        user.color =
+          '#' +
+          Math.floor(Math.random() * 16777215)
+            .toString(16)
+            .padStart(6, '0')
+            .toUpperCase();
+      }
     });
   }
 

@@ -5,12 +5,17 @@
 }
 
 .username {
-  text-align: center;
   margin-right: 20px;
   font-size: 20px;
   display: flex;
   align-items: center;
-  height: 0%;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  cursor: pointer;
 }
 
 .lang-singin {
@@ -20,6 +25,7 @@
   padding-top: 30px;
   justify-content: flex-end;
   padding-right: 60px;
+  align-items: center;
 }
 
 .sign {

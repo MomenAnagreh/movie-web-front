@@ -4,4 +4,5 @@ export interface User {
   password?: any;
   role?: string;
   selected?: boolean;
+  color?: string;
 }
