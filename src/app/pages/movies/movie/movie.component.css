@@ -27,7 +27,7 @@
   width: 100%;
   background-image: linear-gradient(
     to right,
-    rgb(0, 0, 0) 150px,
+    rgb(34, 34, 34) 150px,
     rgb(0, 0, 0, 0.4) 100%
   );
 }

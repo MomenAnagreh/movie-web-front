@@ -8,7 +8,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Roles } from 'src/app/services/intefaces/contact';
+import { Roles } from '../../services/intefaces/contact';
 import { UsersService } from '../../services/users-service/users.service';
 
 @Component({
