@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'movies',
     loadChildren: () =>
       import('../pages/movies/movies.module').then((data) => data.MoviesModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: '**',

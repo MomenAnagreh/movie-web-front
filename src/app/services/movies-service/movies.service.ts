@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import {
   Cast,
   Movie,
@@ -75,20 +75,16 @@ export class MoviesService {
 
           if (name !== 'trendingMovies') {
             this.getTrailer(String(item.id)).subscribe((data: any) => {
-              data.subscribe((item: any) => {
-                item.results.forEach((trail: any) => {
-                  if (trail.type === 'Trailer') {
-                    movie.trailerKey = trail.key;
-                  }
-                });
+              data.results.forEach((trail: any) => {
+                if (trail.type === 'Trailer') {
+                  movie.trailerKey = trail.key;
+                }
               });
             });
             this.getProviders(String(item.id)).subscribe((data: any) => {
-              data.subscribe((elem: Trailer) => {
-                for (let [key, value] of Object.entries(elem.results)) {
-                  if (key === 'US') movie.watch = value['link'];
-                }
-              });
+              for (const key in data.results) {
+                if (key === 'US') movie.watch = data.results[key].link;
+              }
             });
           }
 
@@ -98,7 +94,7 @@ export class MoviesService {
       tap((movies: Movie[]) => {
         if (name === 'populerMovies') {
           this.populerMovies = movies;
-          this.populerMovies$.next(this.populerMovies);
+          this.populerMovies$.next(this.populerMovies.reverse());
         } else if (name === 'trendingMovies') {
           this.trendingMovies = movies;
           this.trendingMovies$.next(this.trendingMovies);
@@ -147,27 +143,23 @@ export class MoviesService {
             'm';
 
           this.getTrailer(String(item.id)).subscribe((data: any) => {
-            data.subscribe((item: any) => {
-              item.results.forEach((trail: any) => {
-                if (trail.type === 'Trailer') {
-                  movie.trailerKey = trail.key;
-                }
-              });
+            data.results.forEach((trail: any) => {
+              if (trail.type === 'Trailer') {
+                movie.trailerKey = trail.key;
+              }
             });
           });
 
           this.getCast(String(item.id)).subscribe((data: any) => {
-            data.subscribe((results: any) => {
-              results.cast.map((actor: any) => {
-                if (actor.profile_path !== null) {
-                  let result = {
-                    name: actor.name,
-                    picture: this.imageURL + actor.profile_path,
-                    character: actor.character,
-                  };
-                  movie.cast.push(result);
-                }
-              });
+            data.cast.map((actor: any) => {
+              if (actor.profile_path !== null) {
+                let result = {
+                  name: actor.name,
+                  picture: this.imageURL + actor.profile_path,
+                  character: actor.character,
+                };
+                movie.cast.push(result);
+              }
             });
           });
           return movie;
@@ -176,69 +168,20 @@ export class MoviesService {
   }
 
   getTrailer(id: string) {
-    return this.http.get<Trailer>(this.movieApi + id + this.trailerAPI).pipe(
-      switchMap(async (value) => {
-        let obs1$ = from([value]);
-
-        return obs1$.pipe(
-          map((value) => {
-            if (!value) {
-              throw new Error('cannot get');
-            }
-            return value;
-          }),
-          catchError((error) => {
-            let obs2$ = of(error);
-            return obs2$;
-          })
-        );
-      })
-    );
+    return this.http
+      .get<Trailer>(this.movieApi + id + this.trailerAPI)
+      .pipe(catchError((err) => of(false)));
   }
 
   getProviders(id: string) {
     return this.http
       .get<Trailer>(this.providersAPIFirst + id + this.providersAPISecond)
-      .pipe(
-        switchMap(async (value) => {
-          let obs1$ = from([value]);
-
-          return obs1$.pipe(
-            map((value) => {
-              if (!value) {
-                throw new Error('cannot get');
-              }
-              return value;
-            }),
-            catchError((error) => {
-              let obs2$ = of(error);
-              return obs2$;
-            })
-          );
-        })
-      );
+      .pipe(catchError((err) => of(false)));
   }
 
   getCast(id: string) {
     return this.http
       .get<Trailer>(this.movieApi + id + '/credits' + this.longApiKey)
-      .pipe(
-        switchMap(async (value) => {
-          let obs1$ = from([value]);
-
-          return obs1$.pipe(
-            map((value) => {
-              if (!value) {
-                throw new Error('cannot get');
-              }
-              return value;
-            }),
-            catchError((error) => {
-              let obs2$ = of(error);
-              return obs2$;
-            })
-          );
-        })
-      );
+      .pipe(catchError((err) => of(false)));
   }
 }
