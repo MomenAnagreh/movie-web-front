@@ -1,0 +1,80 @@
+<div class="mainWrapper">
+  <div class="img-shadow">
+    <div class="divider"></div>
+
+    <form class="signin-container" [formGroup]="form">
+      <div class="signIn">
+        <h1 class="title">Sign In</h1>
+
+        <input
+          type="email"
+          class="inputField"
+          placeholder="Email"
+          id="email"
+          name="email"
+          style="height: 70px"
+          formControlName="email"
+        />
+
+        <div class="passInputWrapp">
+          <input
+            type="password"
+            class="inputField"
+            style="border-radius: none; margin: 0px"
+            placeholder="Password"
+            id="password"
+            name="password"
+            formControlName="password"
+            #pass
+          />
+          <button class="showPass" (click)="showPass()">
+            <i
+              *ngIf="showPassword"
+              class="fa-solid fa-eye"
+              style="font-size: 24px"
+            ></i>
+            <i
+              *ngIf="!showPassword"
+              class="fa fa-eye-slash"
+              style="font-size: 24px"
+            ></i>
+          </button>
+        </div>
+
+        <div
+          *ngIf="(!email.errors?.['valid'] || !password.errors?.['valid']) && email.touched && email.dirty  && password.touched && password.dirty"
+          class="error"
+        >
+          Email or Password is not valid. Try Again!
+        </div>
+
+        <button
+          class="signInButton"
+          (click)="onClick()"
+          routerLink="/movies"
+          type="button"
+          [disabled]="!password.errors?.['valid'] || !email.errors?.['valid']"
+        >
+          Sign In
+        </button>
+
+        <div class="help">
+          <label class="checkbox-wrap">
+            <input type="checkbox" class="remember" />
+            Remember me
+          </label>
+          <a routerLink="" class="needHelp">Need help?</a>
+        </div>
+
+        <div class="register">
+          <div>New to Netflix?</div>
+          <a routerLink="/signup">Sign up now.</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+.movieCardWrapper {
+  width: 100vw;
+  height: 900px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  z-index: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.movieCardShadow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 0,
+    transparent 0%,
+    #292929cc
+  );
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+}
+
+.btn {
+  width: 140px;
+  height: 50px;
+  background-color: rgb(34, 34, 34);
+  margin-right: 20px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btn:disabled {
+  background-color: red;
+}
+
+.movieDetails {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 80%;
+  height: 40%;
+}
+
+.movieDetails h1 {
+  font-size: 50px;
+}
+
+.movieDetails h2 {
+  padding: 0px;
+  max-width: 60%;
+}
+
+.dateLangRateWrapp {
+  display: flex;
+  flex-direction: row;
+  min-height: 20%;
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dateLangRate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28%;
+  height: 55%;
+  background-color: rgb(137, 39, 39);
+  margin-right: 3%;
+  border-radius: 25px;
+  font-size: 125%;
+}
+
+.youtubeVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(34, 34, 34, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

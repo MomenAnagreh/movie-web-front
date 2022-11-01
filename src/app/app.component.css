@@ -1,1 +1,9 @@
-
+.header {
+  position: fixed;
+  min-height: 110px;
+  background-color: rgb(34, 34, 34, 0.5);
+  color: white;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+}

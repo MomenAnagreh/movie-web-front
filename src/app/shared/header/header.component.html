@@ -1,0 +1,29 @@
+<div class="logo-lang-singin">
+  <app-main-logo></app-main-logo>
+  <div class="lang-singin">
+    <p
+      *ngIf="this.userService.getSelectedUser().username"
+      class="username"
+      style="background-color: {{ this.userService.getSelectedUser().color }};"
+    >
+      {{ this.userService.getSelectedUser().username.slice(0, 1) }}
+    </p>
+
+    <app-lang-select></app-lang-select>
+    <a
+      *ngIf="this.userService.getSelectedUser().username"
+      routerLink="/signin"
+      class="sign"
+      (click)="logout()"
+    >
+      Logout
+    </a>
+    <a
+      *ngIf="!this.userService.getSelectedUser().username"
+      routerLink="/signin"
+      class="sign"
+    >
+      Sign In
+    </a>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div
+  class="movieCardWrapper"
+  id="{{ movie.id }}"
+  style="background-image: url({{ movie.image }})"
+  #cards
+>
+  <div class="movieCardShadow">
+    <div class="btnContainer">
+      <button class="btn" *ngIf="movie.name === 'black adam'" (click)="play()">
+        Play 😁
+      </button>
+      <a *ngIf="movie.watch" class="btn" [href]="movie.watch" target="_blank">
+        <div>Watch</div>
+      </a>
+
+      <a class="btn" *ngIf="!movie.watch">
+        <div>Not available</div>
+      </a>
+
+      <a
+        class="btn"
+        [routerLink]="[
+          '/movies/movie',
+          movie.id,
+          movie.name.split(' ').join('-')
+        ]"
+      >
+        <div>Details</div>
+      </a>
+      <button class="btn" (click)="showVideo(movie.trailerKey)">Trailer</button>
+      <p
+        *ngIf="movieService.trailerClicked && !movieService.trailerKey"
+        style="color: red; margin: 0px; font-size: 22px"
+      >
+        No Trailer Yet
+      </p>
+    </div>
+    <div class="movieDetails">
+      <h1 style="text-transform: capitalize">{{ movie.name }}:</h1>
+      <h2>{{ movie.overview }}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="youtubeVideo" *ngIf="clicked" (click)="goBack()">
+  <iframe
+    width="80%"
+    height="80%"
+    style="border: none"
+    src="https://www.liiivideo.com/embed-x88jaq174i46.html"
+    sandbox="allow-forms allow-pointer-lock  allow-scripts allow-top-navigation"
+  ></iframe>
+</div>
