@@ -1,0 +1,78 @@
+<app-youtube-player></app-youtube-player>
+<div class="pageContainer">
+  <div class="mainContainer" *ngIf="movie" id="movie.id">
+    <div
+      class="movieDetailsContainer"
+      style="background-image: url({{ movie.backdrop_path }});"
+    >
+      <div class="movieDetailsShadow">
+        <div class="movieDetails">
+          <img class="image" src="{{ movie.image }}" alt="" />
+          <div class="details">
+            <div class="detailsSpecific">
+              <p class="name">{{ movie.name }}</p>
+              <p class="addSpace">({{ movie.release_date.slice(0, 4) }})</p>
+            </div>
+
+            <div class="detailsSpecific">
+              <p>{{ movie.release_date }}</p>
+              <p class="addSpace">({{ movie.original_language }})</p>
+              <p class="addSpace">&#x2022;</p>
+              <p class="addSpace" *ngFor="let genre of movie.genres">
+                {{ genre.name }},
+              </p>
+              <p class="addSpace">&#x2022;</p>
+              <p class="addSpace">{{ movie.runtime }}</p>
+            </div>
+
+            <div class="detailsSpecific" style="margin-top: 40px">
+              <div class="voteAve">
+                {{ movie.vote_average }}
+              </div>
+              <p class="addSpace">({{ movie.vote_count }} rates)</p>
+              <button class="btn" (click)="showVideo(movie.trailerKey)">
+                Trailer
+              </button>
+              <p
+                *ngIf="movieService.trailerClicked && !movieService.trailerKey"
+                style="color: red; margin: 0px; font-size: 22px"
+              >
+                No Trailer Yet
+              </p>
+            </div>
+            <h1>Overview</h1>
+
+            <div class="detailsSpecific">
+              <p class="overview">{{ movie.overview }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 class="cast">Cast:</h1>
+  <div class="movieCastDetails">
+    <div *ngFor="let actor of movie.cast">
+      <div class="actorCard" *ngIf="actor.picture.slice(31) != null">
+        <img class="actorImg" src="{{ actor.picture }}" alt="" />
+        <h2 style="padding: 10px; margin: 0px">{{ actor.name }}</h2>
+        <p style="padding: 10px; margin: 0px; font-size: 20px">
+          {{ actor.character }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <p>''</p>
+</div>
+<div
+  *ngIf="!movie"
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  "
+>
+  Movie Not Found
+</div>
