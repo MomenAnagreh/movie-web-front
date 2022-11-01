@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreRoutingModule } from './core/core-routing.module';
-import { LangSelectComponent } from './pages/home-page/lang-select/lang-select.component';
-import { MainLogoComponent } from './pages/home-page/main-logo/main-logo.component';
+import { LangSelectComponent } from './shared/lang-select/lang-select.component';
+import { MainLogoComponent } from './shared/main-logo/main-logo.component';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 <nav class="img-nav">
-  <a [routerLink]="this.userService.getSelectedUser().username ? null : ''">
+  <a [routerLink]="this.userService.getSelectedUser().selected ? 'movies' : ''">
     <img
       class="netflex-logo"
       alt="netflex-logo"

@@ -36,14 +36,14 @@
   background-color: white;
   display: flex;
   max-width: 25%;
-  z-index: 2;
+  z-index: 1;
   background-color: black;
   margin-right: 100px;
   justify-content: space-around;
 }
 
 .tv {
-  z-index: 2;
+  z-index: 1;
 }
 
 .secondDetailRight {
