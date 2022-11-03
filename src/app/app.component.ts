@@ -7,7 +7,5 @@ import { UsersService } from './services/users-service/users.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() {}
-
-  ngOnInit() {}
+  title = 'movie-web-front';
 }
