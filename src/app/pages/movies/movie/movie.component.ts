@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MoviesService } from '../../../services/movies-service/movies.service';
-import { Movie } from '../../../services/intefaces/movies';
 
 @Component({
   selector: 'app-movie',
@@ -17,11 +16,8 @@ export class MovieComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((data) => {
-      this.movieService.getMovie(String(data.get('id'))).subscribe((data) => {
-        this.movie = data as Movie;
-      });
-    });
+    this.movie = this.activatedRoute.snapshot.data['movie'];
+    this.movieService.spinner = false;
   }
 
   showVideo(key: string) {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import {
   Cast,
   Movie,
@@ -17,6 +17,7 @@ import {
 export class MoviesService {
   trailerKey: string = '';
   trailerClicked: boolean = false;
+  spinner: boolean = false;
 
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
