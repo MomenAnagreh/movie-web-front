@@ -5,6 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Movie } from '../../../services/intefaces/movies';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
@@ -18,7 +19,7 @@ export class MovieDisplayComponent implements OnInit {
   @ViewChildren('cards') cards!: QueryList<any>;
   clicked: boolean = false;
 
-  constructor(public movieService: MoviesService) {}
+  constructor(public movieService: MoviesService, public router: Router) {}
 
   ngAfterViewChecked() {}
 
@@ -44,7 +45,10 @@ export class MovieDisplayComponent implements OnInit {
     document.body.style.overflow = 'hidden';
   }
 
-  spinner() {
+  spinner(movie: Movie) {
     this.movieService.spinner = true;
+    this.router.navigate(['movies/movie', movie.name], {
+      state: { id: movie.id },
+    });
   }
 }

@@ -17,17 +17,8 @@
         <div>Not available</div>
       </a>
 
-      <a
-        class="btn"
-        [routerLink]="[
-          '/movies/movie',
-          movie.id,
-          movie.name.split(' ').join('-')
-        ]"
-        (click)="spinner()"
-      >
-        <div>Details</div>
-      </a>
+      <button class="btn" (click)="spinner(movie)">Details</button>
+
       <button class="btn" (click)="showVideo(movie.trailerKey)">
         Trailer
         <i class="fa fa-play" style="font-size: 18px; margin-left: 10px"></i>

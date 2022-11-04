@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieComponent } from './movie.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { MovieDetailsResolver } from 'src/app/core/resolvers/movie-details.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: MovieComponent,
+    resolve: {
+      movie: MovieDetailsResolver,
+    },
   },
 ];
 

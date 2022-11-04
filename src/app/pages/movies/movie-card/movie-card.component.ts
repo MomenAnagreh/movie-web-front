@@ -38,10 +38,8 @@ export class MovieCardComponent implements OnInit {
 
   readMore(movie: Movie) {
     this.movieService.spinner = true;
-    this.router.navigate([
-      '/movies/movie',
-      movie.id,
-      movie.name.split(' ').join('-'),
-    ]);
+    this.router.navigate(['movies/movie', movie.name], {
+      state: { id: movie.id },
+    });
   }
 }

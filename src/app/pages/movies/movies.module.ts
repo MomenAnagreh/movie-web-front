@@ -9,7 +9,6 @@ import { MovieListHorizontalComponent } from './movie-list-horizontal/movie-list
 import { MovieListVerticalComponent } from './movie-list-vertical/movie-list-vertical.component';
 import { MoviesComponent } from './movies.component';
 import { SharedModule } from '../../shared/shared.module';
-import { MovieDetailsResolver } from '../../core/resolvers/movie-details.resolver';
 
 const routes: Routes = [
   {
@@ -17,14 +16,11 @@ const routes: Routes = [
     children: [
       { path: '', component: MoviesComponent },
       {
-        path: 'movie/:id/:name',
+        path: 'movie/:name',
         loadChildren: () =>
           import('../movies/movie/movie.module').then(
             (data) => data.MovieModule
           ),
-        resolve: {
-          movie: MovieDetailsResolver,
-        },
       },
     ],
   },
