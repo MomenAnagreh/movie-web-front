@@ -43,4 +43,8 @@ export class MovieDisplayComponent implements OnInit {
     this.clicked = true;
     document.body.style.overflow = 'hidden';
   }
+
+  spinner() {
+    this.movieService.spinner = true;
+  }
 }
