@@ -32,6 +32,10 @@
               <p class="addSpace">({{ movie.vote_count }} Reviews)</p>
               <button class="btn" (click)="showVideo(movie.trailerKey)">
                 Trailer
+                <i
+                  class="fa fa-play"
+                  style="font-size: 18px; margin-left: 10px"
+                ></i>
               </button>
               <p
                 *ngIf="movieService.trailerClicked && !movieService.trailerKey"

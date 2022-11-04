@@ -27,7 +27,10 @@
       >
         <div>Details</div>
       </a>
-      <button class="btn" (click)="showVideo(movie.trailerKey)">Trailer</button>
+      <button class="btn" (click)="showVideo(movie.trailerKey)">
+        Trailer
+        <i class="fa fa-play" style="font-size: 18px; margin-left: 10px"></i>
+      </button>
       <p
         *ngIf="movieService.trailerClicked && !movieService.trailerKey"
         style="color: red; margin: 0px; font-size: 22px"
