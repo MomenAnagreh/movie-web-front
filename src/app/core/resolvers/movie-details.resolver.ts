@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { delay, Observable } from 'rxjs';
-import { MoviesService } from 'src/app/services/movies-service/movies.service';
+import { MoviesService } from '../../services/movies-service/movies.service';
 
 @Injectable({
   providedIn: 'root',

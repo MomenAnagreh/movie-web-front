@@ -8,8 +8,8 @@ import { MovieDisplayComponent } from './movie-display/movie-display.component';
 import { MovieListHorizontalComponent } from './movie-list-horizontal/movie-list-horizontal.component';
 import { MovieListVerticalComponent } from './movie-list-vertical/movie-list-vertical.component';
 import { MoviesComponent } from './movies.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { MovieDetailsResolver } from 'src/app/core/resolvers/movie-details.resolver';
+import { SharedModule } from '../../shared/shared.module';
+import { MovieDetailsResolver } from '../../core/resolvers/movie-details.resolver';
 
 const routes: Routes = [
   {
