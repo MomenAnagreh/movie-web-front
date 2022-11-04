@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MoviesService } from '../../services/movies-service/movies.service';
 import { UsersService } from '../../services/users-service/users.service';
 
@@ -29,6 +29,8 @@ export class MoviesComponent implements OnInit {
     this.movieService.getMovies('trendingMovies').subscribe();
 
     this.movieService.getMovies('discovrMovies', this.page).subscribe();
+
+    window.scrollTo(0, 0);
   }
 
   onScroll() {
