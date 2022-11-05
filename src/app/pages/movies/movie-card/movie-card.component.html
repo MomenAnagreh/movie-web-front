@@ -40,17 +40,7 @@
         <p class="movieDescription">{{ movie.overview }}</p>
       </div>
 
-      <a
-        class="detailsBtn"
-        #readMoreBtn
-        [routerLink]="[
-          '/movies/movie',
-          movie.id,
-          movie.name.split(' ').join('-')
-        ]"
-      >
-        <div>Details</div>
-      </a>
+      <div class="detailsBtn" #readMoreBtn>Details</div>
     </div>
   </div>
 </div>

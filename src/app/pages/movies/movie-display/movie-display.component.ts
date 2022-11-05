@@ -47,7 +47,7 @@ export class MovieDisplayComponent implements OnInit {
 
   spinner(movie: Movie) {
     this.movieService.spinner = true;
-    this.router.navigate(['movies/movie', movie.name], {
+    this.router.navigate(['movies/movie', movie.name.split(' ').join('-')], {
       state: { id: movie.id },
     });
   }

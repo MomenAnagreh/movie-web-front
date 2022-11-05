@@ -16,7 +16,9 @@
 
             <div class="detailsSpecific">
               <p>{{ movie.release_date }}</p>
-              <p class="addSpace">({{ movie.original_language }})</p>
+              <p class="addSpace" style="text-transform: uppercase">
+                ({{ movie.original_language }})
+              </p>
               <p class="addSpace">&#x2022;</p>
               <p class="addSpace" *ngFor="let genre of movie.genres">
                 {{ genre.name }},
