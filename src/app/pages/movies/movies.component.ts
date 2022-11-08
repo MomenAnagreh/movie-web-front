@@ -29,8 +29,10 @@ export class MoviesComponent implements OnInit {
     this.movieService.getMovies('trendingMovies').subscribe();
 
     this.movieService.getMovies('discovrMovies', this.page).subscribe();
+  }
 
-    window.scrollTo(0, 0);
+  ngAfterViewInit() {
+    window.scrollTo(0, this.movieService.pagePosition);
   }
 
   onScroll() {
@@ -44,17 +46,10 @@ export class MoviesComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop > 100
-    ) {
+    this.movieService.pagePosition = window.pageYOffset;
+    if (window.pageYOffset > 100) {
       this.windowScrolled = true;
-    } else if (
-      (this.windowScrolled && window.pageYOffset) ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop < 10
-    ) {
+    } else {
       this.windowScrolled = false;
     }
   }

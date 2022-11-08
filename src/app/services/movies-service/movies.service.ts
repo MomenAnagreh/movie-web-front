@@ -18,6 +18,7 @@ export class MoviesService {
   trailerKey: string = '';
   trailerClicked: boolean = false;
   spinner: boolean = false;
+  pagePosition: number = 0;
 
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
