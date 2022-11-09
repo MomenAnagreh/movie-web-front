@@ -6,6 +6,22 @@
 >
   <div class="movieCardShadow">
     <div class="btnContainer">
+      <button
+        class="btn"
+        *ngIf="added(movie.id)"
+        (click)="addtoWishList(movie)"
+      >
+        <i class="fa fa-heart"></i>
+      </button>
+
+      <button
+        class="btn"
+        *ngIf="!added(movie.id)"
+        (click)="removeFromWishList(movie.id)"
+      >
+        <i class="fa fa-heart" style="color: red"></i>
+      </button>
+
       <button class="btn" *ngIf="movie.name === 'black adam'" (click)="play()">
         Play 😁
       </button>

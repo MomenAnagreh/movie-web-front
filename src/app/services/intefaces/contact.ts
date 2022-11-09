@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Movie } from './movies';
 
 export interface User {
   username?: string;
@@ -7,6 +8,7 @@ export interface User {
   role?: string;
   selected?: boolean;
   color?: string;
+  wishlist?: Movie[];
 }
 
 export interface ValidatorFn {

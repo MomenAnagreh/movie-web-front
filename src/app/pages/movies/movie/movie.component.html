@@ -45,7 +45,24 @@
               >
                 No Trailer Yet
               </p>
+
+              <div
+                class="heart"
+                *ngIf="added(movie.id)"
+                (click)="addtoWishList(movie)"
+              >
+                <i class="fa fa-heart"></i>
+              </div>
+
+              <div
+                class="heart"
+                *ngIf="!added(movie.id)"
+                (click)="removeFromWishList(movie.id)"
+              >
+                <i class="fa fa-heart" style="color: red"></i>
+              </div>
             </div>
+
             <h1>Overview</h1>
 
             <div class="detailsSpecific">

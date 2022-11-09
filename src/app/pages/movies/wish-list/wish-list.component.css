@@ -1,0 +1,19 @@
+.mainWrapper {
+  width: 100%;
+  min-height: 100%;
+  background-color: rgb(34, 34, 34);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.divider {
+  display: flex;
+  height: 130px;
+}
+
+.title {
+  color: white;
+  margin-bottom: 40px;
+  margin-left: 80px;
+}

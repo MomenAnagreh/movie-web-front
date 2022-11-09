@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreRoutingModule } from './core/core-routing.module';
 import { LangSelectComponent } from './shared/lang-select/lang-select.component';
 import { MainLogoComponent } from './shared/main-logo/main-logo.component';
+import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { SharedModule } from './shared/shared.module';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +17,10 @@ import { MainLogoComponent } from './shared/main-logo/main-logo.component';
     HeaderComponent,
     MainLogoComponent,
     LangSelectComponent,
+    NavBarComponent,
+    UserProfileComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, CoreRoutingModule],
+  imports: [BrowserModule, HttpClientModule, CoreRoutingModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })

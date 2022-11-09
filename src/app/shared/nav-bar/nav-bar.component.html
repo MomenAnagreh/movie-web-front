@@ -1,0 +1,26 @@
+<app-spinner></app-spinner>
+
+<div class="mainWrapper" *ngIf="this.userService.getSelectedUser().username">
+  <div class="iconWrapper" (click)="navigate('search')">
+    <i class="fa fa-search"></i>
+    <div style="margin-top: 4px">Search</div>
+  </div>
+  <div class="divide"></div>
+
+  <div class="iconWrapper" (click)="navigate()">
+    <i class="fa fa-home" style="color: white"></i>
+    <div style="margin-top: 4px">Home</div>
+  </div>
+  <div class="divide"></div>
+
+  <div class="iconWrapper" (click)="navigate('wishlist')">
+    <i class="fa fa-heart-o"></i>
+    <div style="margin-top: 4px">Wishlist</div>
+  </div>
+  <div class="divide"></div>
+
+  <div class="iconWrapper" (click)="navUser()">
+    <i class="fas fa-user-alt" style="color: white"></i>
+    <div style="margin-top: 4px">Profile</div>
+  </div>
+</div>
