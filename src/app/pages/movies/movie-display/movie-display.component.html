@@ -36,14 +36,14 @@
       <button class="btn" (click)="spinner(movie)">Details</button>
 
       <button class="btn" (click)="showVideo(movie.trailerKey)">
-        Trailer
+        Trailers
         <i class="fa fa-play" style="font-size: 18px; margin-left: 10px"></i>
       </button>
       <p
-        *ngIf="movieService.trailerClicked && !movieService.trailerKey"
+        *ngIf="movieService.trailerClicked && !movieService.trailerKey.length"
         style="color: red; margin: 0px; font-size: 22px"
       >
-        No Trailer Yet
+        No Trailers Yet
       </p>
     </div>
     <div class="movieDetails">

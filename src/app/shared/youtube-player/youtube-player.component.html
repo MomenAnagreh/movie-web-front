@@ -1,0 +1,19 @@
+<div
+  class="youtubeVideo"
+  (click)="goBack()"
+  *ngIf="movieService.trailerKey && movieService.trailerClicked"
+>
+  <button class="exitVideo">X</button>
+  <youtube-player
+    videoId="{{ movieService.trailerKey[key] }}"
+    suggestedQuality="highres"
+    [width]="1500"
+    [height]="890"
+    [playerVars]="playerConfig"
+  ></youtube-player>
+</div>
+<div *ngIf="movieService.trailerKey && movieService.trailerClicked">
+  <i class="fas fa-angle-right" id="scrollRight" (click)="scrollRight()"></i>
+
+  <i class="fas fa-angle-left" id="scrollLeft" (click)="scrollLeft()"></i>
+</div>

@@ -15,7 +15,7 @@ import {
   providedIn: 'root',
 })
 export class MoviesService {
-  trailerKey: string = '';
+  trailerKey: string[] = [];
   trailerClicked: boolean = false;
   spinner: boolean = false;
   pagePosition: number = 0;
@@ -75,16 +75,14 @@ export class MoviesService {
             release_date: item.release_date ? item.release_date : 'null',
             original_language: item.original_language,
             vote_average: item.vote_average.toFixed(1),
-            trailerKey: '',
+            trailerKey: [] as String[],
             watch: '',
           };
 
           if (name !== 'trendingMovies') {
             this.getTrailer(String(item.id)).subscribe((data: any) => {
               data.results.forEach((trail: any) => {
-                if (trail.type === 'Trailer') {
-                  movie.trailerKey = trail.key;
-                }
+                movie.trailerKey.push(trail.key);
               });
             });
             this.getProviders(String(item.id)).subscribe((data: any) => {
@@ -131,7 +129,7 @@ export class MoviesService {
             runtime: String(item.runtime),
             vote_average: item.vote_average.toFixed(1),
             vote_count: item.vote_count,
-            trailerKey: '',
+            trailerKey: [] as String[],
             overview: item.overview,
             cast: [] as Cast[],
             watch: '',
@@ -150,9 +148,7 @@ export class MoviesService {
 
           this.getTrailer(String(item.id)).subscribe((data: any) => {
             data.results.forEach((trail: any) => {
-              if (trail.type === 'Trailer') {
-                movie.trailerKey = trail.key;
-              }
+              movie.trailerKey.push(trail.key);
             });
           });
 
@@ -214,7 +210,7 @@ export class MoviesService {
                 release_date: item.release_date ? item.release_date : 'null',
                 original_language: item.original_language,
                 vote_average: item.vote_average.toFixed(1),
-                trailerKey: '',
+                trailerKey: [] as String[],
                 watch: '',
               };
               if (!movie.name.includes(name.trim().toLowerCase())) {
@@ -227,7 +223,7 @@ export class MoviesService {
                   release_date: '',
                   original_language: '',
                   vote_average: '',
-                  trailerKey: '',
+                  trailerKey: [],
                   watch: '',
                 };
               }

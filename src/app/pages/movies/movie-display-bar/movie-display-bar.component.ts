@@ -15,7 +15,7 @@ export class MovieDisplayBarComponent implements OnInit {
   ngOnInit(): void {}
 
   scrollRight() {
-    this.movieService.trailerKey = '';
+    this.movieService.trailerKey = [];
     this.movieService.trailerClicked = false;
 
     this.list.nativeElement.scrollTo({
@@ -25,7 +25,7 @@ export class MovieDisplayBarComponent implements OnInit {
   }
 
   scrollLeft() {
-    this.movieService.trailerKey = '';
+    this.movieService.trailerKey = [];
     this.movieService.trailerClicked = false;
 
     this.list.nativeElement.scrollTo({
