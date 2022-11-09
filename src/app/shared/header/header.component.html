@@ -5,6 +5,7 @@
       *ngIf="this.userService.getSelectedUser().username"
       class="username"
       style="background-color: {{ this.userService.getSelectedUser().color }};"
+      (click)="navigate()"
     >
       {{ this.userService.getSelectedUser().username.slice(0, 1) }}
     </p>

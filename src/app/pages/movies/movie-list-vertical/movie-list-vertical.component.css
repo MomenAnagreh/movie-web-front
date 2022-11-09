@@ -8,7 +8,7 @@
   align-content: center;
   overflow-y: auto;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 10vh;
 }
 
 .verticalMovieListWrapper::-webkit-scrollbar {

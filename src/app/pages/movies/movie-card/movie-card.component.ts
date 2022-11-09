@@ -7,6 +7,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from '../../../services/users-service/users.service';
 import { Movie } from '../../../services/intefaces/movies';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
@@ -22,7 +23,11 @@ export class MovieCardComponent implements OnInit {
   @ViewChild('readMoreBtn') readMoreBtn!: any;
   private url: string = 'https://www.themoviedb.org/movie/';
 
-  constructor(public movieService: MoviesService, private router: Router) {}
+  constructor(
+    public movieService: MoviesService,
+    private router: Router,
+    public userService: UsersService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,5 +46,35 @@ export class MovieCardComponent implements OnInit {
     this.router.navigate(['movies/movie', movie.name.split(' ').join('-')], {
       state: { id: movie.id },
     });
+  }
+
+  addtoWishList(movie: Movie) {
+    let added = true;
+    this.userService.wishListMovies$.subscribe((results) => {
+      results.forEach((item) => {
+        if (item.id === Number(movie.id)) {
+          added = false;
+        }
+      });
+    });
+    if (added) {
+      this.userService.addToWishList(movie);
+    }
+  }
+
+  removeFromWishList(id: number) {
+    this.userService.removeFromWishList(id);
+  }
+
+  added(id: number) {
+    let decide = true;
+    this.userService.wishListMovies$.subscribe((items) => {
+      items.forEach((movie) => {
+        if (movie.id === id) {
+          decide = false;
+        }
+      });
+    });
+    return decide;
   }
 }

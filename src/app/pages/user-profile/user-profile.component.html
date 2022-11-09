@@ -1,0 +1,10 @@
+<div class="mainWrapper">
+  <div class="userLogo" style="background-color: {{ user.color }};">
+    {{ user.username.slice(0, 1) }}
+  </div>
+
+  <div class="userDetails" *ngIf="userService.getSelectedUser().username">
+    <p>Email: {{ user.email.toLowerCase() }}</p>
+    <p>Password: {{ user.password }}</p>
+  </div>
+</div>

@@ -20,6 +20,10 @@ export class MoviesService {
   spinner: boolean = false;
   pagePosition: number = 0;
 
+  private foundMovies: Movie[] = [];
+  private foundMovies$ = new BehaviorSubject<Movie[]>(this.foundMovies);
+  foundMoviesList$ = this.foundMovies$.asObservable();
+
   private populerMovies: Movie[] = [];
   private populerMovies$ = new BehaviorSubject<Movie[]>(this.populerMovies);
   populerMovieList$ = this.populerMovies$.asObservable();
@@ -185,5 +189,64 @@ export class MoviesService {
     return this.http
       .get<Trailer>(this.movieApi + id + '/credits' + this.longApiKey)
       .pipe(catchError((err) => of(false)));
+  }
+
+  searchMovie(name: string) {
+    this.foundMovies = [];
+    this.foundMovies$.next(this.foundMovies);
+    let page = 1;
+    while (page < 200 && this.foundMovies.length === 0) {
+      this.http
+        .get<MoviesResponse>(this.discovrAPI + page)
+        .pipe(
+          map((movies: MoviesResponse): any => {
+            return movies.results.map((item: MoviesResults) => {
+              let movie = {
+                id: item.id,
+                name: item.original_title
+                  ? item.original_title.toLowerCase()
+                  : item.original_name.toLowerCase(),
+                overview: item.overview,
+                image: item.poster_path
+                  ? this.imageURL + item.poster_path
+                  : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
+                backdrop_path: this.imageURL + item.backdrop_path,
+                release_date: item.release_date ? item.release_date : 'null',
+                original_language: item.original_language,
+                vote_average: item.vote_average.toFixed(1),
+                trailerKey: '',
+                watch: '',
+              };
+              if (!movie.name.includes(name.trim().toLowerCase())) {
+                movie = {
+                  id: 0,
+                  name: '',
+                  overview: '',
+                  image: '',
+                  backdrop_path: '',
+                  release_date: '',
+                  original_language: '',
+                  vote_average: '',
+                  trailerKey: '',
+                  watch: '',
+                };
+              }
+              return movie;
+            });
+          }),
+          catchError((err) => {
+            return of(0);
+          })
+        )
+        .subscribe((data) =>
+          data.map((item: Movie) => {
+            if (item.name.length > 0) {
+              this.foundMovies = [...this.foundMovies, item];
+              this.foundMovies$.next(this.foundMovies);
+            }
+          })
+        );
+      page++;
+    }
   }
 }

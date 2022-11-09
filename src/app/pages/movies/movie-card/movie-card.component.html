@@ -1,7 +1,6 @@
 <div
   class="movieCardWrapper"
   id="{{ movie.id }}"
-  (click)="readMore(movie)"
   #cards
   (mouseover)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
@@ -19,7 +18,7 @@
       <img src="favicon2.ico" alt="" />
     </div>
 
-    <div class="imgContainer">
+    <div class="imgContainer" (click)="readMore(movie)">
       <img class="movieImg" [src]="movie.image" />
     </div>
 
@@ -28,7 +27,7 @@
         {{ movie.name }}
       </h1>
 
-      <div class="bottomPart">
+      <div class="bottomPart" (click)="readMore(movie)">
         <div class="dateLangRateWrapp">
           <div class="dateLangRate">{{ movie.release_date.slice(0, 4) }}</div>
           <div class="dateLangRate">{{ movie.original_language }}</div>
@@ -40,7 +39,25 @@
         <p class="movieDescription">{{ movie.overview }}</p>
       </div>
 
-      <div class="detailsBtn" #readMoreBtn>Details</div>
+      <div class="btnWrapp" #readMoreBtn>
+        <div class="detailsBtn" (click)="readMore(movie)">Details</div>
+
+        <div
+          class="heart"
+          *ngIf="added(movie.id)"
+          (click)="addtoWishList(movie)"
+        >
+          <i class="fa fa-heart"></i>
+        </div>
+
+        <div
+          class="heart"
+          *ngIf="!added(movie.id)"
+          (click)="removeFromWishList(movie.id)"
+        >
+          <i class="fa fa-heart" style="color: red"></i>
+        </div>
+      </div>
     </div>
   </div>
 </div>

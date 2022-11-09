@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserProfileComponent } from '../pages/user-profile/user-profile.component';
 import { AuthGuard } from './gurads/auth.guard';
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('../pages/movies/movies.module').then((data) => data.MoviesModule),
     // canActivate: [AuthGuard],
+  },
+  {
+    path: 'user',
+    component: UserProfileComponent,
   },
   {
     path: '**',

@@ -1,0 +1,19 @@
+<div class="mainContainer">
+  <div class="divider"></div>
+
+  <div class="searchInputWrapp">
+    <input
+      type="text"
+      placeholder="Movie Name"
+      class="searchInput"
+      #movie
+      (keyup)="search(movie.value)"
+    />
+  </div>
+
+  <div class="moviesList">
+    <app-movie-list-vertical
+      [movies]="movieService.foundMoviesList$"
+    ></app-movie-list-vertical>
+  </div>
+</div>

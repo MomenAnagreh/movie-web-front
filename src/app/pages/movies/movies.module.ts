@@ -9,6 +9,8 @@ import { MovieListHorizontalComponent } from './movie-list-horizontal/movie-list
 import { MovieListVerticalComponent } from './movie-list-vertical/movie-list-vertical.component';
 import { MoviesComponent } from './movies.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MovieSearchComponent } from './movie-search/movie-search.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
             (data) => data.MovieModule
           ),
       },
+      {
+        path: 'search',
+        component: MovieSearchComponent,
+      },
+      {
+        path: 'wishlist',
+        component: WishListComponent,
+      },
     ],
   },
 ];
@@ -34,6 +44,8 @@ const routes: Routes = [
     MovieCardComponent,
     MovieDisplayBarComponent,
     MovieDisplayComponent,
+    MovieSearchComponent,
+    WishListComponent,
   ],
   imports: [
     CommonModule,
