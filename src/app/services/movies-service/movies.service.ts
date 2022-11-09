@@ -191,7 +191,7 @@ export class MoviesService {
     this.foundMovies = [];
     this.foundMovies$.next(this.foundMovies);
     let page = 1;
-    while (page < 200 && this.foundMovies.length === 0) {
+    while (page < 500 && this.foundMovies.length === 0) {
       this.http
         .get<MoviesResponse>(this.discovrAPI + page)
         .pipe(
@@ -213,7 +213,7 @@ export class MoviesService {
                 trailerKey: [] as String[],
                 watch: '',
               };
-              if (!movie.name.includes(name.trim().toLowerCase())) {
+              if (!movie.name.includes(name)) {
                 movie = {
                   id: 0,
                   name: '',
@@ -234,14 +234,16 @@ export class MoviesService {
             return of(0);
           })
         )
-        .subscribe((data) =>
-          data.map((item: Movie) => {
-            if (item.name.length > 0) {
-              this.foundMovies = [...this.foundMovies, item];
-              this.foundMovies$.next(this.foundMovies);
-            }
-          })
-        );
+        .subscribe((data) => {
+          if (data) {
+            data.map((item: Movie) => {
+              if (item.name.length > 0) {
+                this.foundMovies = [...this.foundMovies, item];
+                this.foundMovies$.next(this.foundMovies);
+              }
+            });
+          }
+        });
       page++;
     }
   }

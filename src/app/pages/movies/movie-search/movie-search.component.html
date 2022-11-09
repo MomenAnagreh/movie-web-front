@@ -7,13 +7,22 @@
       placeholder="Movie Name"
       class="searchInput"
       #movie
-      (keyup)="search(movie.value)"
+      (keyup.enter)="search(movie.value)"
     />
+
+    <button class="searchBtn" (click)="search(movie.value)">Search</button>
   </div>
 
   <div class="moviesList">
     <app-movie-list-vertical
       [movies]="movieService.foundMoviesList$"
     ></app-movie-list-vertical>
+  </div>
+
+  <div
+    *ngIf="(movieService.foundMoviesList$ | async)?.length == 0 && clicked"
+    class="empty"
+  >
+    No Results
   </div>
 </div>

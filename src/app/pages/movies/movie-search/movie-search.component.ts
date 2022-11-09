@@ -8,6 +8,7 @@ import { MoviesService } from '../../../services/movies-service/movies.service';
 })
 export class MovieSearchComponent implements OnInit {
   size: number = 0;
+  clicked: boolean = false;
 
   constructor(public movieService: MoviesService) {}
 
@@ -15,7 +16,10 @@ export class MovieSearchComponent implements OnInit {
 
   search(name: string) {
     if (name.length > 0) {
-      this.movieService.searchMovie(name);
+      this.movieService.searchMovie(name.trim().toLowerCase());
+      setTimeout(() => {
+        this.clicked = true;
+      }, 100);
     }
   }
 }
