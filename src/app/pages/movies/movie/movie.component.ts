@@ -23,11 +23,14 @@ export class MovieComponent implements OnInit {
     this.movieService.spinner = false;
   }
 
-  showVideo(key: string) {
+  showVideo(key: string[]) {
     this.movieService.trailerKey = key;
     setTimeout(() => {
       this.movieService.trailerClicked = true;
-      if (this.movieService.trailerKey && this.movieService.trailerClicked) {
+      if (
+        this.movieService.trailerKey.length &&
+        this.movieService.trailerClicked
+      ) {
         document.body.style.overflow = 'hidden';
       }
     }, 0);

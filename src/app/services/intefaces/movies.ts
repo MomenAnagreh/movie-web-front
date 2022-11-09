@@ -8,7 +8,7 @@ export interface Movie {
   original_language: string;
   vote_average: number;
   overview: string;
-  trailerKey: string;
+  trailerKey: string[];
   watch: string;
   genres?: geners[];
   runtime?: number;
