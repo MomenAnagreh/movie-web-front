@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MoviesService } from '../../services/movies-service/movies.service';
-import { UsersService } from '../../services/users-service/users.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-movies',
@@ -18,7 +18,7 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     public movieService: MoviesService,
-    public userService: UsersService
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -29,6 +29,8 @@ export class MoviesComponent implements OnInit {
     this.movieService.getMovies('trendingMovies').subscribe();
 
     this.movieService.getMovies('discovrMovies', this.page).subscribe();
+
+    localStorage.removeItem('movieId');
   }
 
   ngAfterViewInit() {

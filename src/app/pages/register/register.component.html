@@ -49,9 +49,6 @@
         >
           enter a valid email
         </div>
-        <div *ngIf="email.errors?.['hasemail']" class="error">
-          email already exist! try another
-        </div>
 
         <form formGroupName="pwd">
           <div class="passInputWrapp">
@@ -123,11 +120,10 @@
         </form>
 
         <button
-          routerLink="/signin"
           class="signInButton"
           (click)="onClick()"
           type="button"
-          [disabled]="email.errors?.['hasemail'] || !email.errors?.['valid'] || !username.errors?.['valid'] || !pwd.valid || !roles.errors?.['selected']"
+          [disabled]="!email.errors?.['valid'] || !username.errors?.['valid'] || !pwd.valid || !roles.errors?.['selected']"
         >
           Sign up
         </button>

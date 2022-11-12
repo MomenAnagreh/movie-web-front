@@ -27,7 +27,7 @@
             formControlName="password"
             #pass
           />
-          <button class="showPass" (click)="showPass()">
+          <button class="showPass" (click)="showPass()" type="button">
             <i
               *ngIf="showPassword"
               class="fa-solid fa-eye"
@@ -42,17 +42,15 @@
         </div>
 
         <div
-          *ngIf="(!email.errors?.['valid'] || !password.errors?.['valid']) && email.touched && email.dirty  && password.touched && password.dirty"
+          *ngIf="!email.errors?.['valid'] && email.touched && email.dirty"
           class="error"
         >
-          Email or Password is not valid. Try Again!
+          Email is not valid!
         </div>
 
         <button
           class="signInButton"
           (click)="onClick()"
-          routerLink="/movies"
-          type="button"
           [disabled]="!password.errors?.['valid'] || !email.errors?.['valid']"
         >
           Sign In
@@ -68,7 +66,9 @@
 
         <div class="register">
           <div>New to Netflix?</div>
-          <a routerLink="/signup">Sign up now.</a>
+          <button class="registerBtn" (click)="navigate()" type="button">
+            Sign up now.
+          </button>
         </div>
       </div>
     </form>

@@ -10,6 +10,7 @@ import { MainLogoComponent } from './shared/main-logo/main-logo.component';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { SharedModule } from './shared/shared.module';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,13 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     NavBarComponent,
     UserProfileComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, CoreRoutingModule, SharedModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    CoreRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../services/users-service/users.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -7,7 +7,7 @@ import { UsersService } from '../../../services/users-service/users.service';
   styleUrls: ['./wish-list.component.css'],
 })
 export class WishListComponent implements OnInit {
-  constructor(public userService: UsersService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}
 }

@@ -6,7 +6,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsersService } from '../../../services/users-service/users.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { Movie } from '../../../services/intefaces/movies';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
@@ -23,7 +23,7 @@ export class MovieDisplayComponent implements OnInit {
   constructor(
     public movieService: MoviesService,
     public router: Router,
-    public userService: UsersService
+    public authService: AuthService
   ) {}
 
   ngAfterViewChecked() {}
@@ -54,39 +54,19 @@ export class MovieDisplayComponent implements OnInit {
   }
 
   spinner(movie: Movie) {
-    this.movieService.spinner = true;
+    if (this.authService.userValue.role !== 'USER') {
+      this.movieService.spinner = true;
+    }
     this.router.navigate(['movies/movie', movie.name.split(' ').join('-')], {
       state: { id: movie.id },
     });
   }
 
-  addtoWishList(movie: Movie) {
-    let added = true;
-    this.userService.wishListMovies$.subscribe((results) => {
-      results.forEach((item) => {
-        if (item.id === Number(movie.id)) {
-          added = false;
-        }
-      });
-    });
-    if (added) {
-      this.userService.addToWishList(movie);
-    }
-  }
-
-  removeFromWishList(id: number) {
-    this.userService.removeFromWishList(id);
+  editWishList(id: number) {
+    this.authService.editWishList(String(id)).subscribe();
   }
 
   added(id: number) {
-    let decide = true;
-    this.userService.wishListMovies$.subscribe((items) => {
-      items.forEach((movie) => {
-        if (movie.id === id) {
-          decide = false;
-        }
-      });
-    });
-    return decide;
+    return this.authService.userValue.wishlist?.includes(String(id));
   }
 }

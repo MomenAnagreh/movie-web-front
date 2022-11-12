@@ -22,11 +22,14 @@ export class MovieDetailsResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any> {
     const id = this.router.getCurrentNavigation()?.extras.state?.['id'];
-    if (id) {
-      return this.movieService.getMovie(id).pipe(delay(2000));
-    } else {
-      this.router.navigate(['/movies']);
+    let time = 0;
+    if (id !== localStorage.getItem('movieId')) {
+      localStorage.setItem('movieId', id);
+      this.movieService.spinner = true;
+      time = 2000;
     }
-    return of(0);
+    return this.movieService
+      .getMovie(localStorage.getItem('movieId') as string)
+      .pipe(delay(time));
   }
 }
