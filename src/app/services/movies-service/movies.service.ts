@@ -190,7 +190,7 @@ export class MoviesService {
   searchMovie(name: string) {
     this.foundMovies = [];
     this.foundMovies$.next(this.foundMovies);
-    let page = 1;
+    let page = name ? 1 : 500;
     while (page < 500 && this.foundMovies.length === 0) {
       this.http
         .get<MoviesResponse>(this.discovrAPI + page)

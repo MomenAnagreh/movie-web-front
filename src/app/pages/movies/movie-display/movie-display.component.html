@@ -8,16 +8,16 @@
     <div class="btnContainer">
       <button
         class="btn"
-        *ngIf="added(movie.id)"
-        (click)="addtoWishList(movie)"
+        *ngIf="!added(movie.id)"
+        (click)="editWishList(movie.id)"
       >
         <i class="fa fa-heart"></i>
       </button>
 
       <button
         class="btn"
-        *ngIf="!added(movie.id)"
-        (click)="removeFromWishList(movie.id)"
+        *ngIf="added(movie.id)"
+        (click)="editWishList(movie.id)"
       >
         <i class="fa fa-heart" style="color: red"></i>
       </button>

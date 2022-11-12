@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../../../services/intefaces/movies';
-import { UsersService } from '../../../services/users-service/users.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class MovieComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public movieService: MoviesService,
-    public userService: UsersService
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,33 +36,11 @@ export class MovieComponent implements OnInit {
     }, 0);
   }
 
-  addtoWishList(movie: Movie) {
-    let added = true;
-    this.userService.wishListMovies$.subscribe((results) => {
-      results.forEach((item) => {
-        if (item.id === Number(movie.id)) {
-          added = false;
-        }
-      });
-    });
-    if (added) {
-      this.userService.addToWishList(movie);
-    }
-  }
-
-  removeFromWishList(id: number) {
-    this.userService.removeFromWishList(id);
+  editWishList(id: number) {
+    this.authService.editWishList(String(id)).subscribe();
   }
 
   added(id: number) {
-    let decide = true;
-    this.userService.wishListMovies$.subscribe((items) => {
-      items.forEach((movie) => {
-        if (movie.id === id) {
-          decide = false;
-        }
-      });
-    });
-    return decide;
+    return this.authService.userValue.wishlist?.includes(String(id));
   }
 }

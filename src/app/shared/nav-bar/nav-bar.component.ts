@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsersService } from '../../services/users-service/users.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +8,7 @@ import { UsersService } from '../../services/users-service/users.service';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  constructor(public userService: UsersService, public router: Router) {}
+  constructor(public authService: AuthService, public router: Router) {}
 
   ngOnInit(): void {}
 
@@ -17,6 +17,6 @@ export class NavBarComponent implements OnInit {
   }
 
   navUser() {
-    this.router.navigate(['user']);
+    this.router.navigate(['movies/user']);
   }
 }

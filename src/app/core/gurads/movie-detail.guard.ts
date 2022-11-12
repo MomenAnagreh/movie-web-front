@@ -12,18 +12,21 @@ import { AuthService } from '../../services/auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class MovieDetailGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    const { username } = this.authService.userValue;
-    if (username) {
+    const { role } = this.authService.userValue;
+    if (role === 'ADMIN' || role === 'SUPERUSER') {
       return of(true);
     } else {
-      this.router.navigate(['signin']);
+      alert(
+        "User can only access this page if the user role is 'ADMIN' or 'SUPERUSER'. Change your role"
+      );
+      this.router.navigate(['movies/user']);
     }
     return of(false);
   }

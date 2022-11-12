@@ -2,13 +2,19 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Movie } from './movies';
 
 export interface User {
+  id?: string;
   username?: string;
   email?: string;
-  password?: any;
-  role?: string;
-  selected?: boolean;
+  password?: string;
   color?: string;
-  wishlist?: Movie[];
+  wishlist?: string[];
+  role?: string;
+  jwtToken?: string;
+}
+
+export interface UserLogin {
+  email: any;
+  password: any;
 }
 
 export interface ValidatorFn {
@@ -16,7 +22,12 @@ export interface ValidatorFn {
 }
 
 export enum Roles {
-  User,
-  Admin,
-  Super,
+  USER,
+  ADMIN,
+  SUPERUSER,
+}
+
+export interface AuthDto {
+  accessToken: string;
+  role: string;
 }

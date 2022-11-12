@@ -185,3 +185,16 @@ input[type="email"] {
   color: red;
   margin-top: 15px;
 }
+
+.registerBtn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.registerBtn:hover {
+  text-decoration: underline;
+}

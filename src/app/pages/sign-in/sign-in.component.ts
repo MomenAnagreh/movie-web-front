@@ -6,7 +6,8 @@ import {
   NgForm,
   Validators,
 } from '@angular/forms';
-import { UsersService } from '../../services/users-service/users.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,7 +27,11 @@ export class SignInComponent implements OnInit {
     return this.form.get('password') as FormControl;
   }
 
-  constructor(private userService: UsersService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -38,11 +43,31 @@ export class SignInComponent implements OnInit {
   onSubmit(form: NgForm) {}
 
   onClick() {
-    this.userService.setSelectedUser(this.email.value);
+    const user = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+
+    this.authService.checkEmail(user.email).subscribe((result) => {
+      if (result) {
+        this.authService.login(user).subscribe(
+          (res) => {},
+          (err) => {
+            this.form.reset();
+            alert('Invalid Password');
+          }
+        );
+      } else {
+        this.form.reset();
+        alert('Invalid Email');
+      }
+    });
   }
 
   private asyncCheckEmail = async (control: FormControl) => {
-    if (this.userService.testEmail(control.value)) {
+    let regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+    if (regex.test(control.value)) {
       return {
         valid: true,
       };
@@ -51,7 +76,7 @@ export class SignInComponent implements OnInit {
   };
 
   private asyncCheckPassword = async (control: FormControl) => {
-    if (this.userService.testPassword(this.email.value, control.value)) {
+    if (control.value.length >= 8) {
       return {
         valid: true,
       };
@@ -67,5 +92,9 @@ export class SignInComponent implements OnInit {
       this.showPassword = false;
       this.pass.nativeElement.type = 'password';
     }
+  }
+
+  navigate() {
+    this.router.navigate(['/signup']);
   }
 }

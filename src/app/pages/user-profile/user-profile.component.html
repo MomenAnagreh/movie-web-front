@@ -1,10 +1,68 @@
 <div class="mainWrapper">
-  <div class="userLogo" style="background-color: {{ user.color }};">
-    {{ user.username.slice(0, 1) }}
+  <div
+    class="userLogo"
+    style="background-color: {{ this.authService.userValue.color }};"
+  >
+    {{ this.authService.userValue.username?.slice(0, 1)?.toUpperCase() }}
   </div>
 
-  <div class="userDetails" *ngIf="userService.getSelectedUser().username">
-    <p>Email: {{ user.email.toLowerCase() }}</p>
-    <p>Password: {{ user.password }}</p>
+  <div class="userDetails" *ngIf="this.authService.userValue.username">
+    <p>Email: {{ this.authService.userValue.email?.toLowerCase() }}</p>
+    <div class="roleWrapper">
+      <p>Role: {{ this.authService.userValue.role }}</p>
+      <button class="btn" style="margin-left: 20px" (click)="changeRole()">
+        Change Role
+      </button>
+    </div>
+  </div>
+
+  <button class="btn" style="margin-top: 40px" (click)="deleteUser()">
+    Delete User
+  </button>
+
+  <div class="rolePopup" *ngIf="show">
+    <form class="rolesContainer" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form class="rolePickWrapper" formGroupName="roles">
+        <label for="roles">Roles:</label>
+        <select name="roles" class="rolesField" formControlName="role">
+          <option
+            value="{{ rolesEnum[0] }}"
+            *ngIf="this.authService.userValue.role !== rolesEnum[0]"
+          >
+            {{ rolesEnum[0] }}
+          </option>
+          <option
+            value="{{ rolesEnum[1] }}"
+            *ngIf="this.authService.userValue.role !== rolesEnum[1]"
+          >
+            {{ rolesEnum[1] }}
+          </option>
+          <option
+            value="{{ rolesEnum[2] }}"
+            *ngIf="this.authService.userValue.role !== rolesEnum[2]"
+          >
+            {{ rolesEnum[2] }}
+          </option>
+        </select>
+      </form>
+      <div
+        style="color: red; margin-left: 10px"
+        *ngIf="roles.touched && !roles.errors?.['selected']"
+      >
+        Please choose a role
+      </div>
+
+      <div class="btnWrapper">
+        <button class="btn" type="button" (click)="goBack()">Cancel</button>
+        <button
+          class="btn"
+          type="button"
+          (click)="handleRole()"
+          [disabled]="!roles.errors?.['selected']"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
 </div>

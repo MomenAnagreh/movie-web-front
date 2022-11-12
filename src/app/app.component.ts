@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsersService } from './services/users-service/users.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,17 @@ import { UsersService } from './services/users-service/users.service';
 })
 export class AppComponent {
   title = 'movie-web-front';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    if (localStorage.getItem('access_token')) {
+      this.authService
+        .userExist(localStorage.getItem('access_token') as string)
+        .subscribe(
+          (res) => {},
+          (err) => {}
+        );
+    }
+  }
 }

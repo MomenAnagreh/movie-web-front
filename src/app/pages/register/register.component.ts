@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Roles } from '../../services/intefaces/contact';
-import { UsersService } from '../../services/users-service/users.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     return this.form.get('roles') as FormGroup;
   }
 
-  constructor(public userService: UsersService, private fb: FormBuilder) {}
+  constructor(public authService: AuthService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -76,30 +76,29 @@ export class RegisterComponent implements OnInit {
       password: this.pwd.get('password')?.value,
       role: this.roles.get('role')?.value,
     };
-    this.userService.addUser(user);
+    this.authService.checkEmail(user.email).subscribe((result) => {
+      if (result) {
+        this.email.reset();
+        alert('Email Already Exist');
+      } else {
+        this.authService.addUser(user).subscribe();
+      }
+    });
   }
 
   private asyncCheckEmail = async (control: FormControl) => {
-    let regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    let regex =
+      /^([a-zA-Z0-9]{4,})+([._-]?[a-zA-Z0-9]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+    let result = {
+      valid: false,
+    };
 
     if (regex.test(control.value)) {
-      if (this.userService.checkEmail(control.value)) {
-        return {
-          valid: true,
-          hasemail: true,
-        };
-      } else {
-        return {
-          valid: true,
-          hasemail: false,
-        };
-      }
-    } else {
-      return {
-        valid: false,
-        hasemail: false,
-      };
+      result.valid = true;
     }
+
+    return result;
   };
 
   private asyncCheckUsername = async (control: FormControl) => {

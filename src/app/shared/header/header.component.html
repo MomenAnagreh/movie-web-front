@@ -2,25 +2,24 @@
   <app-main-logo></app-main-logo>
   <div class="lang-singin">
     <p
-      *ngIf="this.userService.getSelectedUser().username"
+      *ngIf="this.authService.userValue.username"
       class="username"
-      style="background-color: {{ this.userService.getSelectedUser().color }};"
+      style="background-color: {{ this.authService.userValue.color }};"
       (click)="navigate()"
     >
-      {{ this.userService.getSelectedUser().username.slice(0, 1) }}
+      {{ this.authService.userValue.username.slice(0, 1).toUpperCase() }}
     </p>
 
     <app-lang-select></app-lang-select>
     <a
-      *ngIf="this.userService.getSelectedUser().username"
-      routerLink="/signin"
+      *ngIf="this.authService.userValue.username"
       class="sign"
       (click)="logout()"
     >
       Logout
     </a>
     <a
-      *ngIf="!this.userService.getSelectedUser().username"
+      *ngIf="!this.authService.userValue.username"
       routerLink="/signin"
       class="sign"
     >
