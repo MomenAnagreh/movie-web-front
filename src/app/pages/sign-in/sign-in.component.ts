@@ -38,6 +38,8 @@ export class SignInComponent implements OnInit {
       email: ['', [Validators.required], [this.asyncCheckEmail]],
       password: ['', [Validators.required], [this.asyncCheckPassword]],
     });
+
+    localStorage.clear();
   }
 
   onSubmit(form: NgForm) {}

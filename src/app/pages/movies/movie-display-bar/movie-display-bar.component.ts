@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Movie } from 'src/app/services/intefaces/movies';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
@@ -12,6 +19,8 @@ export class MovieDisplayBarComponent implements OnInit {
   @ViewChild('list') list!: ElementRef;
   index: number = 0;
   movieInterval!: any;
+  started: boolean = false;
+  tempStop: boolean = false;
 
   constructor(public movieService: MoviesService) {}
 
@@ -21,6 +30,46 @@ export class MovieDisplayBarComponent implements OnInit {
     });
     this.index = Number(localStorage.getItem('lastMovie'));
     localStorage.removeItem('lastMovie');
+    this.startInterval();
+  }
+
+  ngAfterViewChecked() {
+    if (this.movieService.spinner || this.movieService.trailerClicked) {
+      this.tempStop = true;
+      this.stopInterval();
+    } else if (this.tempStop && !this.started) {
+      this.startInterval();
+      this.tempStop = false;
+    }
+  }
+
+  ngOnDestroy() {
+    this.stopInterval();
+    localStorage.setItem('lastMovie', String(this.index));
+  }
+
+  scrollRight() {
+    if (this.index < this.movies.length - 1) {
+      this.movieService.trailerKey = [];
+      this.movieService.trailerClicked = false;
+      this.stopInterval();
+
+      this.index++;
+    }
+    this.stopInterval();
+  }
+
+  scrollLeft() {
+    if (this.index > 0) {
+      this.movieService.trailerKey = [];
+      this.movieService.trailerClicked = false;
+
+      this.index--;
+    }
+  }
+
+  startInterval() {
+    this.started = true;
     this.movieInterval = setInterval(() => {
       if (this.index < this.movies.length - 1) {
         this.index++;
@@ -30,34 +79,18 @@ export class MovieDisplayBarComponent implements OnInit {
     }, 5000);
   }
 
-  ngAfterViewChecked() {
-    if (this.movieService.spinner || this.movieService.trailerClicked) {
-      clearInterval(this.movieInterval);
-    }
-  }
-
-  ngOnDestroy() {
+  stopInterval() {
+    this.started = false;
     clearInterval(this.movieInterval);
-    localStorage.setItem('lastMovie', String(this.index));
   }
 
-  scrollRight() {
-    if (this.index < this.movies.length - 1) {
-      this.movieService.trailerKey = [];
-      this.movieService.trailerClicked = false;
-      clearInterval(this.movieInterval);
-
-      this.index++;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.pageYOffset < 400 && !this.started) {
+      this.startInterval();
     }
-  }
-
-  scrollLeft() {
-    if (this.index > 0) {
-      this.movieService.trailerKey = [];
-      this.movieService.trailerClicked = false;
-      clearInterval(this.movieInterval);
-
-      this.index--;
+    if (window.pageYOffset > 400) {
+      this.stopInterval();
     }
   }
 }

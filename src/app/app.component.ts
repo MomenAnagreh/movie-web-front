@@ -15,10 +15,7 @@ export class AppComponent {
     if (localStorage.getItem('access_token')) {
       this.authService
         .userExist(localStorage.getItem('access_token') as string)
-        .subscribe(
-          (res) => {},
-          (err) => {}
-        );
+        .subscribe();
     }
   }
 }

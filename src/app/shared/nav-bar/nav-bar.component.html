@@ -1,25 +1,26 @@
 <app-spinner></app-spinner>
 
 <div class="mainWrapper" *ngIf="this.authService.userValue.username">
-  <div class="iconWrapper" (click)="navigate('search')">
+  <div class="iconWrapper" id="1" (click)="navigate('search', '1')" #tabs>
     <i class="fa fa-search"></i>
     <div style="margin-top: 4px">Search</div>
   </div>
   <div class="divide"></div>
 
-  <div class="iconWrapper" (click)="navigate()">
+  <div class="iconWrapper2" id="2" (click)="navigate('', '2')" #tabs>
     <i class="fa fa-home" style="color: white"></i>
     <div style="margin-top: 4px">Home</div>
   </div>
   <div class="divide"></div>
 
-  <div class="iconWrapper" (click)="navigate('wishlist')">
+  <div class="iconWrapper" id="3" (click)="navigate('wishlist', '3')" #tabs>
     <i class="fa fa-heart-o"></i>
     <div style="margin-top: 4px">Wishlist</div>
+    <div style="margin-top: 4px">( {{ authService.wishlistLength }} )</div>
   </div>
   <div class="divide"></div>
 
-  <div class="iconWrapper" (click)="navUser()">
+  <div class="iconWrapper" id="4" (click)="navUser('4')" #tabs>
     <i class="fas fa-user-alt" style="color: white"></i>
     <div style="margin-top: 4px">Profile</div>
   </div>

@@ -33,6 +33,13 @@ export class AuthService {
     return this.user$.value;
   }
 
+  get wishlistLength(): Number {
+    if (this.user$.value.wishlist) {
+      return this.user$.value.wishlist?.length;
+    }
+    return 0;
+  }
+
   AddwishlistValues() {
     let wishlist: Movie[] = [];
     this.userValue.wishlist?.forEach((id) => {
