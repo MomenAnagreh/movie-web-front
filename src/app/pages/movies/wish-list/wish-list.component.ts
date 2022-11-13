@@ -10,4 +10,8 @@ export class WishListComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}
+
+  clearAll() {
+    this.authService.clearWishList().subscribe();
+  }
 }

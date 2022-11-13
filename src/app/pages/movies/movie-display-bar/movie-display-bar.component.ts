@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Movie } from 'src/app/services/intefaces/movies';
 import { MoviesService } from '../../../services/movies-service/movies.service';
 
 @Component({
@@ -9,28 +10,54 @@ import { MoviesService } from '../../../services/movies-service/movies.service';
 export class MovieDisplayBarComponent implements OnInit {
   @Input() movies: any;
   @ViewChild('list') list!: ElementRef;
+  index: number = 0;
+  movieInterval!: any;
 
   constructor(public movieService: MoviesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.movies.subscribe((data: Movie[]) => {
+      this.movies = data;
+    });
+    this.index = Number(localStorage.getItem('lastMovie'));
+    localStorage.removeItem('lastMovie');
+    this.movieInterval = setInterval(() => {
+      if (this.index < this.movies.length - 1) {
+        this.index++;
+      } else {
+        this.index = 0;
+      }
+    }, 5000);
+  }
+
+  ngAfterViewChecked() {
+    if (this.movieService.spinner || this.movieService.trailerClicked) {
+      clearInterval(this.movieInterval);
+    }
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.movieInterval);
+    localStorage.setItem('lastMovie', String(this.index));
+  }
 
   scrollRight() {
-    this.movieService.trailerKey = [];
-    this.movieService.trailerClicked = false;
+    if (this.index < this.movies.length - 1) {
+      this.movieService.trailerKey = [];
+      this.movieService.trailerClicked = false;
+      clearInterval(this.movieInterval);
 
-    this.list.nativeElement.scrollTo({
-      left: this.list.nativeElement.scrollLeft + 1991.5,
-      behavior: 'auto',
-    });
+      this.index++;
+    }
   }
 
   scrollLeft() {
-    this.movieService.trailerKey = [];
-    this.movieService.trailerClicked = false;
+    if (this.index > 0) {
+      this.movieService.trailerKey = [];
+      this.movieService.trailerClicked = false;
+      clearInterval(this.movieInterval);
 
-    this.list.nativeElement.scrollTo({
-      left: this.list.nativeElement.scrollLeft - 1991,
-      behavior: 'auto',
-    });
+      this.index--;
+    }
   }
 }

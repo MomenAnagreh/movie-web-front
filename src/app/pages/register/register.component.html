@@ -76,11 +76,17 @@
           </div>
 
           <div
-            *ngIf="pwd.get('password')?.errors?.['minlen'] && pwd.get('password')?.touched && pwd.get('password')?.dirty"
+            *ngIf="pwd.get('password')?.errors?.['valid'] && pwd.get('password')?.touched && pwd.get('password')?.dirty"
             class="error"
           >
-            Password should be longer than
-            {{ pwd.get('password')?.errors?.['requiredLength'] }} characters
+            Enter a valid password:
+            <p>
+              1. Minimum
+              {{ pwd.get('password')?.errors?.['requiredLength'] }} characters.
+            </p>
+            <p>2. One uppercase letter.</p>
+            <p>3. One lowercase letter.</p>
+            <p>4. One number.</p>
           </div>
 
           <div class="passInputWrapp">

@@ -12,8 +12,7 @@ import { MoviesService } from '../movies-service/movies.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private user: User = {};
-  private user$ = new BehaviorSubject<User>(this.user);
+  private user$ = new BehaviorSubject<User>({});
 
   private wishlist$ = new BehaviorSubject<Movie[]>([]);
   public wishlistMovies$ = this.wishlist$.asObservable();
@@ -85,7 +84,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    localStorage.clear();
 
     this.stopRefreshTokenTimer();
 
@@ -185,6 +184,29 @@ export class AuthService {
 
     return this.http
       .patch<AuthDto>(`${this.backendAPI}/userupdate`, { wish: id }, header)
+      .pipe(
+        tap(({ accessToken, role }: AuthDto) => {
+          this.wishlist$.next([]);
+          this.setUserValue({ accessToken, role });
+        }),
+        catchError((error) => {
+          return throwError('Somthing went wrong during sign in', error);
+        })
+      );
+  }
+
+  clearWishList() {
+    this.stopRefreshTokenTimer();
+
+    var header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this.userValue.jwtToken}`
+      ),
+    };
+
+    return this.http
+      .patch<AuthDto>(`${this.backendAPI}/deleteuserwishlist`, {}, header)
       .pipe(
         tap(({ accessToken, role }: AuthDto) => {
           this.wishlist$.next([]);

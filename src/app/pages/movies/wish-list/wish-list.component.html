@@ -1,7 +1,10 @@
 <div class="mainWrapper">
   <div class="divider"></div>
 
-  <h1 class="title">WishList:</h1>
+  <div class="titleContainer">
+    <h1 class="title">WishList:</h1>
+    <button class="btn" (click)="clearAll()">Clear All</button>
+  </div>
 
   <app-movie-list-vertical
     [movies]="authService.wishlistMovies$"

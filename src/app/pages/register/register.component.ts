@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Roles } from '../../services/intefaces/contact';
 import { AuthService } from '../../services/auth/auth.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required], [this.asyncCheckUsername]],
       pwd: this.fb.group(
         {
-          password: ['', [this.minlen(8)]],
+          password: ['', [this.asyncCheckPassword(8)]],
           confirm: [''],
         },
         {
@@ -86,40 +87,43 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  private asyncCheckEmail = async (control: FormControl) => {
+  private asyncCheckEmail = (
+    control: AbstractControl
+  ): Observable<ValidationErrors> | null => {
     let regex =
       /^([a-zA-Z0-9]{4,})+([._-]?[a-zA-Z0-9]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 
-    let result = {
-      valid: false,
-    };
-
     if (regex.test(control.value)) {
-      result.valid = true;
+      return of({
+        valid: true,
+      });
     }
-
-    return result;
+    return of({ valid: false });
   };
 
-  private asyncCheckUsername = async (control: FormControl) => {
+  private asyncCheckUsername = (
+    control: AbstractControl
+  ): Observable<ValidationErrors> | null => {
     let regex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
 
     if (regex.test(control.value) && control.value.length >= 8) {
-      return {
+      return of({
         valid: true,
-      };
+      });
     } else {
-      return {
+      return of({
         valid: false,
-      };
+      });
     }
   };
 
-  private minlen(limitednum: number): ValidatorFn {
+  private asyncCheckPassword(limitednum: number): ValidatorFn {
     return function (control: AbstractControl): ValidationErrors | null {
-      if (control.value.length < limitednum) {
+      let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+      if (!regex.test(control.value)) {
         return {
-          minlen: true,
+          valid: true,
           requiredLength: limitednum,
         };
       }

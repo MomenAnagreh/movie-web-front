@@ -1,5 +1,6 @@
 <div
   class="movieCardWrapper"
+  *ngIf="movie"
   id="{{ movie.id }}"
   style="background-image: url({{ movie.image }})"
   #cards
