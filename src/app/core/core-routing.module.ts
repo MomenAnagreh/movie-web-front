@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './gurads/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
       import('../pages/home-page/home-page.module').then(
         (data) => data.HomePageModule
       ),
+    canActivate: [LoginGuard],
   },
   {
     path: 'signin',
@@ -17,6 +19,7 @@ const routes: Routes = [
       import('../pages/sign-in/sign-in.module').then(
         (data) => data.SignInModule
       ),
+    canActivate: [LoginGuard],
   },
   {
     path: 'signup',
@@ -24,6 +27,7 @@ const routes: Routes = [
       import('../pages/register/register.module').then(
         (data) => data.RegisterModule
       ),
+    canActivate: [LoginGuard],
   },
   {
     path: 'movies',

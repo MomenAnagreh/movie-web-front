@@ -225,7 +225,7 @@ export class AuthService {
       );
   }
 
-  userExist(jwtToken: string) {
+  userExist(jwtToken: string, id: string) {
     this.stopRefreshTokenTimer();
 
     var header = {
@@ -237,14 +237,13 @@ export class AuthService {
       .pipe(
         tap(({ accessToken, role }: AuthDto) => {
           this.setUserValue({ accessToken, role });
-          let id = localStorage.getItem('movieId');
 
           id
-            ? this.movieService.getMovie(String(id)).subscribe((data) => {
+            ? this.movieService.getMovie(id).subscribe((data) => {
                 this.router.navigate(
                   ['movies/movie', data.name.split(' ').join('-')],
                   {
-                    state: { id: localStorage.getItem('movieId') },
+                    state: { id: id },
                   }
                 );
               })

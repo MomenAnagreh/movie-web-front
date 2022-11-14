@@ -14,7 +14,10 @@ export class AppComponent {
   ngOnInit() {
     if (localStorage.getItem('access_token')) {
       this.authService
-        .userExist(localStorage.getItem('access_token') as string)
+        .userExist(
+          localStorage.getItem('access_token') as string,
+          localStorage.getItem('movieId') as string
+        )
         .subscribe();
     }
   }
