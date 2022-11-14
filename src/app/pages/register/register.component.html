@@ -16,7 +16,7 @@
         />
 
         <div
-          *ngIf="!username.errors?.['valid'] && username.dirty && username.touched"
+          *ngIf="!username.valid && username.dirty && username.touched"
           class="error"
         >
           Enter a valid username:
@@ -48,6 +48,10 @@
           class="error"
         >
           enter a valid email
+        </div>
+
+        <div *ngIf="email.errors?.['hasemail']" class="error">
+          email already exist
         </div>
 
         <form formGroupName="pwd">
@@ -129,7 +133,7 @@
           class="signInButton"
           (click)="onClick()"
           type="button"
-          [disabled]="!email.errors?.['valid'] || !username.errors?.['valid'] || !pwd.valid || !roles.errors?.['selected']"
+          [disabled]="!email.errors?.['valid'] || email.errors?.['hasemail'] || !username.valid || !pwd.valid || !roles.errors?.['selected']"
         >
           Sign up
         </button>

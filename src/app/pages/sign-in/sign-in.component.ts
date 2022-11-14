@@ -1,12 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   NgForm,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -35,8 +40,17 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.required], [this.asyncCheckEmail]],
-      password: ['', [Validators.required], [this.asyncCheckPassword]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+          ),
+        ],
+        [this.asyncCheckEmail],
+      ],
+      password: ['', [this.checkPassword]],
     });
 
     localStorage.clear();
@@ -50,41 +64,40 @@ export class SignInComponent implements OnInit {
       password: this.password.value,
     };
 
-    this.authService.checkEmail(user.email).subscribe((result) => {
-      if (result) {
-        this.authService.login(user).subscribe(
-          (res) => {},
-          (err) => {
-            this.form.reset();
-            alert('Invalid Password');
-          }
-        );
-      } else {
-        this.form.reset();
-        alert('Invalid Email');
-      }
-    });
+    return this.authService
+      .login(user)
+      .pipe(
+        catchError(() => {
+          this.password.reset();
+          alert('Invalid Password');
+          return of(0);
+        })
+      )
+      .subscribe();
   }
 
-  private asyncCheckEmail = async (control: FormControl) => {
-    let regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  private asyncCheckEmail = (
+    control: AbstractControl
+  ): Observable<ValidationErrors> | null => {
+    return this.authService.checkEmail(control.value).pipe(
+      map((val) => {
+        if (val) {
+          return { valid: true, hasemail: true };
+        } else {
+          return { valid: true, hasemail: false };
+        }
+      })
+    );
+  };
 
-    if (regex.test(control.value)) {
+  private checkPassword(control: AbstractControl): ValidationErrors | null {
+    if (control.value && control.value.length >= 8) {
       return {
         valid: true,
       };
     }
-    return { valid: false };
-  };
-
-  private asyncCheckPassword = async (control: FormControl) => {
-    if (control.value.length >= 8) {
-      return {
-        valid: true,
-      };
-    }
-    return { valid: false };
-  };
+    return {};
+  }
 
   showPass() {
     if (this.pass.nativeElement.type === 'password') {

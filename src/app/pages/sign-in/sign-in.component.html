@@ -16,6 +16,20 @@
           formControlName="email"
         />
 
+        <div
+          *ngIf="!email.errors?.['valid'] && email.touched && email.dirty"
+          class="error"
+        >
+          Email is not valid!
+        </div>
+
+        <div
+          *ngIf="!email.errors?.['hasemail'] && email.errors?.['valid'] "
+          class="error"
+        >
+          Email does not exist!
+        </div>
+
         <div class="passInputWrapp">
           <input
             type="password"
@@ -42,16 +56,16 @@
         </div>
 
         <div
-          *ngIf="!email.errors?.['valid'] && email.touched && email.dirty"
+          *ngIf="!password.errors?.['valid'] && password.touched && password.dirty"
           class="error"
         >
-          Email is not valid!
+          Password is too short! {{ password.errors?.['valid'] }}
         </div>
 
         <button
           class="signInButton"
           (click)="onClick()"
-          [disabled]="!password.errors?.['valid'] || !email.errors?.['valid']"
+          [disabled]="!password.errors?.['valid'] || !email.errors?.['valid'] || !email.errors?.['hasemail']"
         >
           Sign In
         </button>

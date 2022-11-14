@@ -11,6 +11,7 @@ import {
 import { Roles } from '../../services/intefaces/contact';
 import { AuthService } from '../../services/auth/auth.service';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -46,11 +47,28 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.required], [this.asyncCheckEmail]],
-      username: ['', [Validators.required], [this.asyncCheckUsername]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^([a-zA-Z0-9]{4,})+([._-]?[a-zA-Z0-9]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+          ),
+        ],
+        [this.asyncCheckEmail],
+      ],
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/
+          ),
+        ],
+      ],
       pwd: this.fb.group(
         {
-          password: ['', [this.asyncCheckPassword(8)]],
+          password: ['', [this.checkPassword(8)]],
           confirm: [''],
         },
         {
@@ -62,7 +80,7 @@ export class RegisterComponent implements OnInit {
           role: ['', [Validators.required]],
         },
         {
-          validators: [this.asyncCheckRole],
+          validators: [this.checkRole],
         }
       ),
     });
@@ -77,47 +95,25 @@ export class RegisterComponent implements OnInit {
       password: this.pwd.get('password')?.value,
       role: this.roles.get('role')?.value,
     };
-    this.authService.checkEmail(user.email).subscribe((result) => {
-      if (result) {
-        this.email.reset();
-        alert('Email Already Exist');
-      } else {
-        this.authService.addUser(user).subscribe();
-      }
-    });
+
+    return this.authService.addUser(user).subscribe();
   }
 
   private asyncCheckEmail = (
     control: AbstractControl
   ): Observable<ValidationErrors> | null => {
-    let regex =
-      /^([a-zA-Z0-9]{4,})+([._-]?[a-zA-Z0-9]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-
-    if (regex.test(control.value)) {
-      return of({
-        valid: true,
-      });
-    }
-    return of({ valid: false });
+    return this.authService.checkEmail(control.value).pipe(
+      map((val) => {
+        if (val) {
+          return { valid: true, hasemail: true };
+        } else {
+          return { valid: true, hasemail: false };
+        }
+      })
+    );
   };
 
-  private asyncCheckUsername = (
-    control: AbstractControl
-  ): Observable<ValidationErrors> | null => {
-    let regex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
-
-    if (regex.test(control.value) && control.value.length >= 8) {
-      return of({
-        valid: true,
-      });
-    } else {
-      return of({
-        valid: false,
-      });
-    }
-  };
-
-  private asyncCheckPassword(limitednum: number): ValidatorFn {
+  private checkPassword(limitednum: number): ValidatorFn {
     return function (control: AbstractControl): ValidationErrors | null {
       let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -141,7 +137,7 @@ export class RegisterComponent implements OnInit {
     return null;
   };
 
-  private asyncCheckRole = (group: FormGroup): ValidationErrors | null => {
+  private checkRole = (group: FormGroup): ValidationErrors | null => {
     if (!group.get('role')?.value) return { selected: false };
     return { selected: true };
   };
