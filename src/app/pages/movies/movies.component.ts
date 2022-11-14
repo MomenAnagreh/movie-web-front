@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./movies.component.css'],
 })
 export class MoviesComponent implements OnInit {
-  page: number = 1;
   trailerClicked: boolean = false;
   windowScrolled: boolean = false;
 
@@ -28,7 +27,7 @@ export class MoviesComponent implements OnInit {
 
     this.movieService.getMovies('trendingMovies').subscribe();
 
-    this.movieService.getMovies('discovrMovies', this.page).subscribe();
+    this.movieService.getMovies('discovrMovies', 1).subscribe();
 
     localStorage.removeItem('movieId');
   }
@@ -38,7 +37,8 @@ export class MoviesComponent implements OnInit {
   }
 
   onScroll() {
-    this.movieService.getMovies('discovrMovies', ++this.page).subscribe();
+    let currentPage = this.movieService.pages.length + 1;
+    this.movieService.getMovies('discovrMovies', currentPage).subscribe();
   }
 
   goBack() {

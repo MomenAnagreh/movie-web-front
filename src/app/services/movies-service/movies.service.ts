@@ -19,6 +19,7 @@ export class MoviesService {
   trailerClicked: boolean = false;
   spinner: boolean = false;
   pagePosition: number = 0;
+  pages: number[] = [];
 
   private foundMovies: Movie[] = [];
   private foundMovies$ = new BehaviorSubject<Movie[]>(this.foundMovies);
@@ -103,8 +104,11 @@ export class MoviesService {
           this.trendingMovies = movies;
           this.trendingMovies$.next(this.trendingMovies);
         } else if (name === 'discovrMovies') {
-          this.allMovies = [...this.allMovies, ...movies];
-          this.allMovies$.next(this.allMovies);
+          if (!this.pages.includes(page)) {
+            this.allMovies = [...this.allMovies, ...movies];
+            this.allMovies$.next(this.allMovies);
+            this.pages.push(page);
+          }
         } else if (name === 'topRatedMovies') {
           this.topRatedMovies = movies;
           this.topRatedMovies$.next(this.topRatedMovies);
@@ -209,23 +213,12 @@ export class MoviesService {
                 backdrop_path: this.imageURL + item.backdrop_path,
                 release_date: item.release_date ? item.release_date : 'null',
                 original_language: item.original_language,
-                vote_average: item.vote_average.toFixed(1),
+                vote_average: item.vote_average,
                 trailerKey: [] as String[],
                 watch: '',
               };
               if (!movie.name.includes(name)) {
-                movie = {
-                  id: 0,
-                  name: '',
-                  overview: '',
-                  image: '',
-                  backdrop_path: '',
-                  release_date: '',
-                  original_language: '',
-                  vote_average: '',
-                  trailerKey: [],
-                  watch: '',
-                };
+                movie = {} as Movie;
               }
               return movie;
             });
@@ -235,14 +228,13 @@ export class MoviesService {
           })
         )
         .subscribe((data) => {
-          if (data) {
-            data.map((item: Movie) => {
-              if (item.name.length > 0) {
-                this.foundMovies = [...this.foundMovies, item];
-                this.foundMovies$.next(this.foundMovies);
-              }
-            });
-          }
+          data.map((item: Movie) => {
+            if (item.name) {
+              item.vote_average = Number(item.vote_average.toFixed(1));
+              this.foundMovies = [...this.foundMovies, item];
+              this.foundMovies$.next(this.foundMovies);
+            }
+          });
         });
       page++;
     }

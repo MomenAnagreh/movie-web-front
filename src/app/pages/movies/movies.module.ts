@@ -12,7 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { MovieDetailGuard } from '../../core/gurads/movie-detail.guard';
+import { MovieDetailGuard } from '../../core/guards/movie-detail.guard';
 
 const routes: Routes = [
   {
